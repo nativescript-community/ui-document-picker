@@ -1,0 +1,16 @@
+.idea
+.vscode
+node_modules
+platforms
+hooks
+.DS_Store
+npm-debug.log.*
+demo*/app/**/*.js
+
+**/*.js.map
+src/**/*.js
+plugin/**/*.js
+plugin/**/*.d.ts
+
+!plugin/platforms
+/plugin/platforms/android/nativescript_*.aar
