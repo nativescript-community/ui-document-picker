@@ -1,0 +1,33 @@
+{
+  "name": "nativescript-document-picker",
+  "version": "1.0.0",
+  "description": "File Picker",
+  "main": "./filepicker",
+  "typings": "./filepicker.d.ts",
+  "nativescript": {
+    "platforms": {
+      "android": "3.0.0",
+      "ios": "3.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farfromrefuge/nativescript-document-picker.git"
+  },
+  "keywords": [
+    "ecosystem:NativeScript",
+    "NativeScript"
+  ],
+  "author": {
+    "name": "Martin Guillon",
+    "email": "martin.guillon@akyasl.fr"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/farfromrefuge/nativescript-document-picker/issues"
+  },
+  "homepage": "https://github.com/farfromrefuge/nativescript-document-picker",
+  "dependencies": {
+    "nativescript-permissions": "^1.2.3"
+  }
+}
