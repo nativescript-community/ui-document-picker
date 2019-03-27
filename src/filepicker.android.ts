@@ -5,7 +5,7 @@ import { FilePickerOptions } from './filepicker.common';
 
 export { FilePickerOptions };
 
-function callIntent(intent, pickerType) {
+function callIntent(context, intent, pickerType) {
     const requestPermissions = [android.Manifest.permission.WRITE_EXTERNAL_STORAGE];
 
     return permissions.requestPermission(requestPermissions, 'Need these permissions to access files').then(
@@ -18,7 +18,7 @@ function callIntent(intent, pickerType) {
                     }
                 };
                 app.android.once(app.AndroidApplication.activityResultEvent, onEvent);
-                app.android.foregroundActivity.startActivityForResult(intent, pickerType);
+                context.startActivityForResult(intent, pickerType);
                 // function onResult(args) {
                 //     app.android.off(app.AndroidApplication.activityResultEvent, onResult);
                 //     t.handleResults(args.requestCode, args.resultCode, args.intent);
@@ -130,6 +130,7 @@ export function openFilePicker(params: FilePickerOptions) {
     //             Toast.LENGTH_SHORT).show();
     // }
 
+    const context = app.android.foregroundActivity || app.android.startActivity;
     const FILE_CODE = 1231;
 
     const intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
@@ -141,14 +142,14 @@ export function openFilePicker(params: FilePickerOptions) {
     // intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
     // intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
     // intent.putExtra(android.content.Intent.EXTRA_START_PATH, android.os.Environment.getExternalStorageDirectory().getPath());
-    return callIntent(intent, FILE_CODE).then((result: app.AndroidActivityResultEventData) => {
+    return callIntent(context, intent, FILE_CODE).then((result: app.AndroidActivityResultEventData) => {
         if (result.resultCode === android.app.Activity.RESULT_OK) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
             if (result.intent != null) {
-                const context = app.android.foregroundActivity;
+                // const context = app.android.foregroundActivity;
                 const uri: android.net.Uri = result.intent.getData();
                 return {
                     files: [getFilePath(context, uri)],

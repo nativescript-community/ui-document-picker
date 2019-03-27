@@ -1,6 +1,6 @@
 {
   "name": "nativescript-document-picker",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "File Picker",
   "main": "./filepicker",
   "typings": "./filepicker.d.ts",
