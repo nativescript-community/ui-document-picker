@@ -1,5 +1,4 @@
 import * as utils from 'tns-core-modules/utils/utils';
-import { isIOS } from 'tns-core-modules/ui/core/view';
 import { FilePickerOptions } from './filepicker.common';
 
 export { FilePickerOptions };
@@ -50,7 +49,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
 }
 
 export function openFilePicker(params: FilePickerOptions) {
-    console.log('openFilePicker', params, isIOS);
+    console.log('openFilePicker', params);
     // const options = params;
     let documentTypes;
 

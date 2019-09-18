@@ -1,17 +1,16 @@
-import { isIOS } from 'tns-core-modules/ui/core/view';
 import * as app from 'tns-core-modules/application';
-import * as permissions from 'nativescript-permissions';
+import * as permissions from 'nativescript-perms';
 import { FilePickerOptions } from './filepicker.common';
 
 export { FilePickerOptions };
 
 function callIntent(context, intent, pickerType) {
-    const requestPermissions = [android.Manifest.permission.WRITE_EXTERNAL_STORAGE];
-
-    return permissions.requestPermission(requestPermissions, 'Need these permissions to access files').then(
+    return permissions.request('storage').then(
         () =>
             new Promise((resolve: (r: app.AndroidActivityResultEventData) => void, reject) => {
+                console.log(' callIntent ', intent, pickerType);
                 const onEvent = function(e: app.AndroidActivityResultEventData) {
+                    console.log(' startActivityForResult ', e.requestCode);
                     if (e.requestCode === pickerType) {
                         resolve(e);
                         app.android.off(app.AndroidApplication.activityResultEvent, onEvent);
@@ -19,90 +18,86 @@ function callIntent(context, intent, pickerType) {
                 };
                 app.android.once(app.AndroidApplication.activityResultEvent, onEvent);
                 context.startActivityForResult(intent, pickerType);
-                // function onResult(args) {
-                //     app.android.off(app.AndroidApplication.activityResultEvent, onResult);
-                //     t.handleResults(args.requestCode, args.resultCode, args.intent);
-                // }
             })
-        // app.android.on(app.AndroidApplication.activityResultEvent, onResult);
-
-        // function onResult(args) {
-        //     app.android.off(app.AndroidApplication.activityResultEvent, onResult);
-        //     t.handleResults(args.requestCode, args.resultCode, args.intent);
-        // }
     );
 }
 
-function getFilePath(context: android.content.Context, uri: android.net.Uri) {
-    if (android.os.Build.VERSION.SDK_INT >= 126) {
-        const file = new java.io.File(uri.getPath()); // create path from uri
-        return file.getPath().split(':')[1];
-    }
+// function getFilePath(context: android.content.Context, uri: android.net.Uri) {
+//     console.log('getFilePath', uri);
+//     // if (android.os.Build.VERSION.SDK_INT >= 26) {
+//     //     const file = new java.io.File(uri.getPath()); // create path from uri
+//     //     console.log('getFilePath 26', uri.getPath(), file.getPath(), file.getAbsolutePath());
+//     //     return file.getAbsolutePath().split(':')[1];
+//     // }
 
-    let selection = null;
-    let selectionArgs = null;
-    // Uri is different in versions after KITKAT (Android 4.4), we need to
-    if (android.os.Build.VERSION.SDK_INT >= 19 && android.provider.DocumentsContract.isDocumentUri(context.getApplicationContext(), uri)) {
-        if (isExternalStorageDocument(uri)) {
-            const docId = android.provider.DocumentsContract.getDocumentId(uri);
-            const split = docId.split(':');
-            return android.os.Environment.getExternalStorageDirectory() + '/' + split[1];
-        } else if (isDownloadsDocument(uri)) {
-            const id = android.provider.DocumentsContract.getDocumentId(uri);
-            uri = android.content.ContentUris.withAppendedId(android.net.Uri.parse('content://downloads/public_downloads'), parseInt(id, 10));
-        } else if (isMediaDocument(uri)) {
-            const docId = android.provider.DocumentsContract.getDocumentId(uri);
-            const split = docId.split(':');
-            const type = split[0];
-            if (type === 'image') {
-                uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            } else if (type === 'video') {
-                uri = android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-            } else if (type === 'audio') {
-                uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            }
-            selection = '_id=?';
-            selectionArgs = [split[1]];
-        }
-    }
-    if (uri.getScheme().toLowerCase() === 'content') {
-        if (isGooglePhotosUri(uri)) {
-            return uri.getLastPathSegment();
-        }
+//     let selection = null;
+//     let selectionArgs = null;
+//     // Uri is different in versions after KITKAT (Android 4.4), we need to
+//     if (android.os.Build.VERSION.SDK_INT >= 19 && android.provider.DocumentsContract.isDocumentUri(context.getApplicationContext(), uri)) {
+//         if (isExternalStorageDocument(uri)) {
+//             const docId = android.provider.DocumentsContract.getDocumentId(uri);
+//             const split = docId.split(':');
+//             return android.os.Environment.getExternalStorageDirectory() + '/' + split[1];
+//         } else if (isDownloadsDocument(uri)) {
+//             const id = android.provider.DocumentsContract.getDocumentId(uri);
+//             uri = android.content.ContentUris.withAppendedId(android.net.Uri.parse('content://downloads/public_downloads'), parseInt(id, 10));
+//         } else if (isMediaDocument(uri)) {
+//             const docId = android.provider.DocumentsContract.getDocumentId(uri);
+//             const split = docId.split(':');
+//             const type = split[0];
+//             if (type === 'image') {
+//                 uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+//             } else if (type === 'video') {
+//                 uri = android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+//             } else if (type === 'audio') {
+//                 uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+//             }
+//             selection = '_id=?';
+//             selectionArgs = [split[1]];
+//         }
+//     }
+//     if (uri.getScheme().toLowerCase() === 'content') {
+//         console.log('testing content')
+//         if (isGooglePhotosUri(uri)) {
+//             return uri.getLastPathSegment();
+//         }
 
-        const projection = [(android.provider.MediaStore.Images.Media as any).DATA];
-        let cursor: android.database.Cursor = null;
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
-            const column_index = cursor.getColumnIndexOrThrow((android.provider.MediaStore.Images.Media as any).DATA);
-            if (cursor.moveToFirst()) {
-                return cursor.getString(column_index);
-            }
-        } catch (e) {}
-    } else if (uri.getScheme().toLowerCase() === 'file') {
-        return uri.getPath();
-    }
-    return null;
-}
+//         const projection = [(android.provider.MediaStore.Images.Media as any).DATA];
+//         let cursor: android.database.Cursor = null;
+//         try {
+//             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
+//             console.log('testing cusror', uri, cursor)
+//             const column_index = cursor.getColumnIndexOrThrow((android.provider.MediaStore.Images.Media as any).DATA);
+//             if (cursor && cursor.moveToFirst()) {
+//                 return cursor.getString(column_index);
+//             }
+//         } catch (e) {
+//             console.error(e);
+//         }
+//     } else if (uri.getScheme().toLowerCase() === 'file') {
+//         return uri.getPath();
+//     }
+//     return null;
+// }
 
-function isExternalStorageDocument(uri) {
-    return uri.getAuthority() === 'com.android.externalstorage.documents';
-}
+// function isExternalStorageDocument(uri) {
+//     return uri.getAuthority() === 'com.android.externalstorage.documents';
+// }
 
-function isDownloadsDocument(uri) {
-    return uri.getAuthority() === 'com.android.providers.downloads.documents';
-}
+// function isDownloadsDocument(uri) {
+//     return uri.getAuthority() === 'com.android.providers.downloads.documents';
+// }
 
-function isMediaDocument(uri) {
-    return uri.getAuthority() === 'com.android.providers.media.documents';
-}
+// function isMediaDocument(uri) {
+//     return uri.getAuthority() === 'com.android.providers.media.documents';
+// }
 
-function isGooglePhotosUri(uri) {
-    return uri.getAuthority() === 'com.google.android.apps.photos.content';
-}
+// function isGooglePhotosUri(uri) {
+//     return uri.getAuthority() === 'com.google.android.apps.photos.content';
+// }
 
 export function openFilePicker(params: FilePickerOptions) {
-    console.log('openFilePicker', params, isIOS);
+    console.log('openFilePicker', params);
 
     // const FilePickerActivity = (com as any).nononsenseapps.filepicker.FilePickerActivity;
     // const Utils = (com as any).nononsenseapps.filepicker.Utils;
@@ -143,6 +138,7 @@ export function openFilePicker(params: FilePickerOptions) {
     // intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
     // intent.putExtra(android.content.Intent.EXTRA_START_PATH, android.os.Environment.getExternalStorageDirectory().getPath());
     return callIntent(context, intent, FILE_CODE).then((result: app.AndroidActivityResultEventData) => {
+        console.log('on callIntent result', result.resultCode, android.app.Activity.RESULT_OK);
         if (result.resultCode === android.app.Activity.RESULT_OK) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
@@ -151,8 +147,9 @@ export function openFilePicker(params: FilePickerOptions) {
             if (result.intent != null) {
                 // const context = app.android.foregroundActivity;
                 const uri: android.net.Uri = result.intent.getData();
+                console.log('on picker result', uri, (com as any).nativescript.documentpicker.FilePath.getPath(context, uri));
                 return {
-                    files: [getFilePath(context, uri)],
+                    files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
                     android: uri
                 };
             }
