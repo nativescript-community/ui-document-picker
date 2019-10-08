@@ -1,6 +1,6 @@
 {
   "name": "nativescript-document-picker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "File Picker",
   "main": "./filepicker",
   "typings": "./filepicker.d.ts",
@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/farfromrefuge/nativescript-document-picker",
   "dependencies": {
-    "nativescript-perms": "^1.0.4"
+    "nativescript-perms": "^1.0.9"
   }
 }

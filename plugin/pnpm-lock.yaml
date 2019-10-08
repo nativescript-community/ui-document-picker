@@ -1,0 +1,10 @@
+dependencies:
+  nativescript-perms: 1.0.9
+lockfileVersion: 5.1
+packages:
+  /nativescript-perms/1.0.9:
+    dev: false
+    resolution:
+      integrity: sha512-6xXzEVDsXuZzrvb8NxKdzOH+p40DU6HYCRWh0EGAG4nHvTE7DtwMeXeHEcQDu3Nx0PnVbsK3MBa43ryUVgPBMw==
+specifiers:
+  nativescript-perms: ^1.0.9

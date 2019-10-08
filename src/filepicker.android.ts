@@ -129,7 +129,14 @@ export function openFilePicker(params: FilePickerOptions) {
     const FILE_CODE = 1231;
 
     const intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
-    intent.setType(params.extensions ? params.extensions.join(' | ') : '*/*');
+    const types = (params.extensions
+        && params.extensions
+              .map(s => android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(s))
+              .filter(s => !!s)
+              .join(' | ')
+        ) || '*/*';
+    console.log('types', types);
+    intent.setType(types);
     intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
     intent.setAction(android.content.Intent.ACTION_OPEN_DOCUMENT);
     // const intent = new android.content.Intent(app.android.foregroundActivity, FilePickerActivity.class);
@@ -153,7 +160,7 @@ export function openFilePicker(params: FilePickerOptions) {
                     android: uri
                 };
             }
-            return{
+            return {
                 files: []
             };
 
@@ -168,7 +175,9 @@ export function openFilePicker(params: FilePickerOptions) {
             //     android: files
             // };
         } else {
-            throw new Error('no_file');
+            return {
+                files: []
+            };
         }
     });
 }

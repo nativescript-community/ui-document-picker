@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Document Picker without using 3rd party libraries",
   "scripts": {
-    "tsc": "tsc -skipLibCheck && cp src/filepicker.d.ts plugin",
+    "tsc": "cp src/filepicker.d.ts plugin && tsc -skipLibCheck",
     "build": "npm i && npm run tsc",
     "tslint": "tslint \"src/**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
     "plugin.tscwatch": "npm run tsc -- -w",
@@ -29,16 +29,16 @@
   },
   "homepage": "https://github.com/farfromrefuge/nativescript-document-picker",
   "devDependencies": {
-    "prettier": "^1.17.0",
-    "rimraf": "^2.6.3",
-    "tns-core-modules": "^5.3.1",
-    "tns-platform-declarations": "^5.3.1",
-    "tslint": "^5.16.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "tns-core-modules": "^6.1.1",
+    "tns-platform-declarations": "^6.1.1",
+    "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "~3.4.5"
+    "typescript": "~3.6.3"
   },
   "dependencies": {
-    "nativescript-perms": "^1.0.4"
+    "nativescript-perms": "^1.0.9"
   }
 }
