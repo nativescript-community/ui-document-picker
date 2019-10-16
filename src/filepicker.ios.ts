@@ -43,7 +43,9 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
     }
 
     public documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
-        this._reject('cancelled');
+        this._resolve({
+            files: []
+        });
         this.cleanup(controller);
     }
 }
