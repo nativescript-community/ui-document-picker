@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/farfromrefuge/nativescript-document-picker.git"
+    "url": "https://github.com/farfromrefug/nativescript-document-picker.git"
   },
   "keywords": [
     "ecosystem:NativeScript",
@@ -25,9 +25,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/farfromrefuge/nativescript-document-picker/issues"
+    "url": "https://github.com/farfromrefug/nativescript-document-picker/issues"
   },
-  "homepage": "https://github.com/farfromrefuge/nativescript-document-picker",
+  "homepage": "https://github.com/farfromrefug/nativescript-document-picker",
   "devDependencies": {
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
