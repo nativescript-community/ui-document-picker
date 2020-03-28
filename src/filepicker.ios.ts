@@ -51,7 +51,6 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
 }
 
 export function openFilePicker(params: FilePickerOptions) {
-    console.log('openFilePicker', params);
     // const options = params;
     let documentTypes;
 
@@ -59,14 +58,12 @@ export function openFilePicker(params: FilePickerOptions) {
         documentTypes = utils.ios.collections.jsArrayToNSArray(params.extensions);
     }
     return new Promise((resolve, reject) => {
-        console.log('arunning promise controller', params.extensions);
         const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(documentTypes, params.pickerMode !== undefined ? params.pickerMode : UIDocumentPickerMode.Import);
         controller.delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;
 
         // if (options.multipleSelection) {
         controller.allowsMultipleSelection = !!params.multipleSelection;
         // }
-        console.log('about to open controller');
 
         // this.presentViewController(controller);
         const app = utils.ios.getter(UIApplication, UIApplication.sharedApplication);

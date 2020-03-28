@@ -8,9 +8,7 @@ function callIntent(context, intent, pickerType) {
     return permissions.request('storage').then(
         () =>
             new Promise((resolve: (r: app.AndroidActivityResultEventData) => void, reject) => {
-                console.log(' callIntent ', intent, pickerType);
                 const onEvent = function(e: app.AndroidActivityResultEventData) {
-                    console.log(' startActivityForResult ', e.requestCode);
                     if (e.requestCode === pickerType) {
                         resolve(e);
                         app.android.off(app.AndroidApplication.activityResultEvent, onEvent);
@@ -97,7 +95,6 @@ function callIntent(context, intent, pickerType) {
 // }
 
 export function openFilePicker(params: FilePickerOptions) {
-    console.log('openFilePicker', params);
 
     // const FilePickerActivity = (com as any).nononsenseapps.filepicker.FilePickerActivity;
     // const Utils = (com as any).nononsenseapps.filepicker.Utils;
@@ -135,7 +132,6 @@ export function openFilePicker(params: FilePickerOptions) {
               .filter(s => !!s)
               .join(' | ')
         ) || '*/*';
-    console.log('types', types);
     intent.setType(types);
     intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
     intent.setAction(android.content.Intent.ACTION_OPEN_DOCUMENT);
@@ -145,7 +141,6 @@ export function openFilePicker(params: FilePickerOptions) {
     // intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
     // intent.putExtra(android.content.Intent.EXTRA_START_PATH, android.os.Environment.getExternalStorageDirectory().getPath());
     return callIntent(context, intent, FILE_CODE).then((result: app.AndroidActivityResultEventData) => {
-        console.log('on callIntent result', result.resultCode, android.app.Activity.RESULT_OK);
         if (result.resultCode === android.app.Activity.RESULT_OK) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
@@ -154,7 +149,6 @@ export function openFilePicker(params: FilePickerOptions) {
             if (result.intent != null) {
                 // const context = app.android.foregroundActivity;
                 const uri: android.net.Uri = result.intent.getData();
-                console.log('on picker result', uri, (com as any).nativescript.documentpicker.FilePath.getPath(context, uri));
                 return {
                     files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
                     android: uri
