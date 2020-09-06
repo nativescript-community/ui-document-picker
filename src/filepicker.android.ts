@@ -1,20 +1,19 @@
-import * as app from 'tns-core-modules/application';
-import * as permissions from 'nativescript-perms';
+import { AndroidActivityResultEventData, AndroidApplication, android as androidApp } from '@nativescript/core/application';
+import { request } from '@nativescript-community/perms';
 import { FilePickerOptions } from './filepicker.common';
-
 export { FilePickerOptions };
 
 function callIntent(context, intent, pickerType) {
-    return permissions.request('storage').then(
+    return request('storage').then(
         () =>
-            new Promise((resolve: (r: app.AndroidActivityResultEventData) => void, reject) => {
-                const onEvent = function(e: app.AndroidActivityResultEventData) {
+            new Promise((resolve: (r: AndroidActivityResultEventData) => void, reject) => {
+                const onEvent = function (e: AndroidActivityResultEventData) {
                     if (e.requestCode === pickerType) {
                         resolve(e);
-                        app.android.off(app.AndroidApplication.activityResultEvent, onEvent);
+                        androidApp.off(AndroidApplication.activityResultEvent, onEvent);
                     }
                 };
-                app.android.once(app.AndroidApplication.activityResultEvent, onEvent);
+                androidApp.once(AndroidApplication.activityResultEvent, onEvent);
                 context.startActivityForResult(intent, pickerType);
             })
     );
@@ -95,7 +94,6 @@ function callIntent(context, intent, pickerType) {
 // }
 
 export function openFilePicker(params: FilePickerOptions) {
-
     // const FilePickerActivity = (com as any).nononsenseapps.filepicker.FilePickerActivity;
     // const Utils = (com as any).nononsenseapps.filepicker.Utils;
     let extensions;
@@ -122,40 +120,41 @@ export function openFilePicker(params: FilePickerOptions) {
     //             Toast.LENGTH_SHORT).show();
     // }
 
-    const context = app.android.foregroundActivity || app.android.startActivity;
+    const context = androidApp.foregroundActivity || androidApp.startActivity;
     const FILE_CODE = 1231;
 
     const intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
-    const types = (params.extensions
-        && params.extensions
-              .map(s => android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(s))
-              .filter(s => !!s)
-              .join(' | ')
-        ) || '*/*';
+    const types =
+        (params.extensions &&
+            params.extensions
+                .map((s) => android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(s))
+                .filter((s) => !!s)
+                .join(' | ')) ||
+        '*/*';
     intent.setType(types);
     intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
     intent.setAction(android.content.Intent.ACTION_OPEN_DOCUMENT);
-    // const intent = new android.content.Intent(app.android.foregroundActivity, FilePickerActivity.class);
+    // const intent = new android.content.Intent(androidApp.foregroundActivity, FilePickerActivity.class);
     intent.putExtra(android.content.Intent.EXTRA_ALLOW_MULTIPLE, !!params.multipleSelection);
     // intent.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
     // intent.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
     // intent.putExtra(android.content.Intent.EXTRA_START_PATH, android.os.Environment.getExternalStorageDirectory().getPath());
-    return callIntent(context, intent, FILE_CODE).then((result: app.AndroidActivityResultEventData) => {
+    return callIntent(context, intent, FILE_CODE).then((result: AndroidActivityResultEventData) => {
         if (result.resultCode === android.app.Activity.RESULT_OK) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
             if (result.intent != null) {
-                // const context = app.android.foregroundActivity;
+                // const context = androidApp.foregroundActivity;
                 const uri: android.net.Uri = result.intent.getData();
                 return {
                     files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
-                    android: uri
+                    android: uri,
                 };
             }
             return {
-                files: []
+                files: [],
             };
 
             // Use the provided utility method to parse the result
@@ -170,7 +169,7 @@ export function openFilePicker(params: FilePickerOptions) {
             // };
         } else {
             return {
-                files: []
+                files: [],
             };
         }
     });

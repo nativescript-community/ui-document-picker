@@ -1,5 +1,5 @@
 {
-  "name": "nativescript-document-picker",
+  "name": "@nativescript-community/ui-document-picker",
   "version": "1.0.7",
   "description": "File Picker",
   "main": "./filepicker",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/farfromrefug/nativescript-document-picker.git"
+    "url": "https://github.com/nativescript-community/ui-document-picker.git"
   },
   "keywords": [
     "ecosystem:NativeScript",
@@ -24,10 +24,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/farfromrefug/nativescript-document-picker/issues"
+    "url": "https://github.com/nativescript-community/ui-document-picker/issues"
   },
-  "homepage": "https://github.com/farfromrefug/nativescript-document-picker",
+  "homepage": "https://github.com/nativescript-community/ui-document-picker",
   "dependencies": {
-    "nativescript-perms": "^1.0.9"
+    "@nativescript-community/perms": "^2.1.0"
   }
 }

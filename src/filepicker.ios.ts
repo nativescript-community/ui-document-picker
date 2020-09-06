@@ -1,8 +1,8 @@
-import * as utils from 'tns-core-modules/utils/utils';
+import { Utils } from '@nativescript/core';
 import { FilePickerOptions } from './filepicker.common';
-
 export { FilePickerOptions };
 
+@NativeClass
 class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegate {
     private _resolve: Function;
     private _reject: Function;
@@ -25,7 +25,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
     public documentPickerDidPickDocumentAtURL(controller: UIDocumentPickerViewController, url: NSURL) {
         this._resolve({
             files: [url.absoluteString],
-            ios: url
+            ios: url,
         });
         this.cleanup(controller);
     }
@@ -37,14 +37,14 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         }
         this._resolve({
             files: output,
-            ios: urls
+            ios: urls,
         });
         this.cleanup(controller);
     }
 
     public documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
         this._resolve({
-            files: []
+            files: [],
         });
         this.cleanup(controller);
     }
@@ -55,10 +55,13 @@ export function openFilePicker(params: FilePickerOptions) {
     let documentTypes;
 
     if (params.extensions && params.extensions.length > 0) {
-        documentTypes = utils.ios.collections.jsArrayToNSArray(params.extensions);
+        documentTypes = Utils.ios.collections.jsArrayToNSArray(params.extensions);
     }
     return new Promise((resolve, reject) => {
-        const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(documentTypes, params.pickerMode !== undefined ? params.pickerMode : UIDocumentPickerMode.Import);
+        const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
+            documentTypes,
+            params.pickerMode !== undefined ? params.pickerMode : UIDocumentPickerMode.Import
+        );
         controller.delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;
 
         // if (options.multipleSelection) {
@@ -66,9 +69,9 @@ export function openFilePicker(params: FilePickerOptions) {
         // }
 
         // this.presentViewController(controller);
-        const app = utils.ios.getter(UIApplication, UIApplication.sharedApplication);
+        const app = UIApplication.sharedApplication;
         const window = app.keyWindow || (app.windows.count > 0 && app.windows[0]);
-        const visibleVC = utils.ios.getVisibleViewController(window.rootViewController);
+        const visibleVC = Utils.ios.getVisibleViewController(window.rootViewController);
         visibleVC.presentViewControllerAnimatedCompletion(controller, true, null);
     });
 }
