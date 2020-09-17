@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
