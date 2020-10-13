@@ -1,12 +1,4 @@
-# NativeScript filepicker plugin
-
-[![NPM version][npm-image]][npm-url]
-[![Downloads][downloads-image]][npm-url]
-[![Twitter Follow][twitter-image]][twitter-url]
-
-[npm-image]:http://img.shields.io/npm/v/nativescript-filepicker.svg
-[npm-url]:https://npmjs.org/package/nativescript-filepicker
-[downloads-image]:http://img.shields.io/npm/dm/nativescript-filepicker.svg
+# NativeScript document picker plugin
 
 ## Installation
 From the command prompt go to your app's root folder and execute:
