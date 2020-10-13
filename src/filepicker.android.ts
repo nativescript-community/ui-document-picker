@@ -146,12 +146,13 @@ export function openFilePicker(params: FilePickerOptions) {
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
             if (result.intent != null) {
-                // const context = androidApp.foregroundActivity;
-                const uri: android.net.Uri = result.intent.getData();
-                return {
-                    files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
-                    android: uri,
-                };
+                const uri: android.net.Uri = (result.intent as android.content.Intent).getData();
+                if (uri) {
+                    return {
+                        files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
+                        android: uri,
+                    };
+                }
             }
             return {
                 files: [],
