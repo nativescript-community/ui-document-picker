@@ -4,6 +4,7 @@
   "description": "File Picker",
   "main": "./filepicker",
   "typings": "./filepicker.d.ts",
+  "sideEffects": false,
   "nativescript": {
     "platforms": {
       "android": "3.0.0",
