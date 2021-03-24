@@ -97,7 +97,7 @@ function callIntent(context, intent, pickerType) {
  * Convert to android Array
  */
 function convertToArray(types) {
-    let mimeTypes;
+    let mimeTypes: string[];
     if (types && types.length > 0) {
         mimeTypes = Array.create(java.lang.String, types.length);
         for (let i = 0; i < types.length; i++) {
