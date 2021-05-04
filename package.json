@@ -4,9 +4,10 @@
   "description": "Document Picker without using 3rd party libraries",
   "scripts": {
     "setup": "ts-patch install",
+"prepare": "npm run setup",
     "tsc": "cpy '**/*.d.ts' '../plugin' --parents --cwd=src && tsc -skipLibCheck",
     "build": "npm run tsc",
-    "publish": "npm run setup &&  \\cp README.md plugin/ && npm run build && lerna publish --create-release=github",
+    "publish": "npm run setup &&  \\cp README.md plugin/ && npm run build && lerna publish --create-release=github --force-publish",
     "tslint": "tslint \"src/**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
     "plugin.tscwatch": "npm run tsc -- -w",
     "demo.ios": "npm i && npm run tsc && cd demo && tns run ios",
