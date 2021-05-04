@@ -93,18 +93,23 @@ function callIntent(context, intent, pickerType) {
 //     return uri.getAuthority() === 'com.google.android.apps.photos.content';
 // }
 
+/**
+ * Convert to android Array
+ */
+function convertToArray(types) {
+    let mimeTypes: string[];
+    if (types && types.length > 0) {
+        mimeTypes = Array.create(java.lang.String, types.length);
+        for (let i = 0; i < types.length; i++) {
+            mimeTypes[i] = types[i];
+        }
+    }
+    return mimeTypes;
+}
+
 export function openFilePicker(params: FilePickerOptions) {
     // const FilePickerActivity = (com as any).nononsenseapps.filepicker.FilePickerActivity;
     // const Utils = (com as any).nononsenseapps.filepicker.Utils;
-    let extensions;
-
-    if (params.extensions.length > 0) {
-        extensions = Array.create(java.lang.String, params.extensions.length);
-
-        for (let i = 0; i < params.extensions.length; i++) {
-            extensions[i] = params.extensions[i];
-        }
-    }
 
     //     const  intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
     //     intent.setType("*/*.im");
@@ -124,14 +129,21 @@ export function openFilePicker(params: FilePickerOptions) {
     const FILE_CODE = 1231;
 
     const intent = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
-    const types =
+
+    // Convert extensions to mime type
+    let mimeTypes  =
         (params.extensions &&
             params.extensions
                 .map((s) => android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(s))
-                .filter((s) => !!s)
-                .join(' | ')) ||
-        '*/*';
-    intent.setType(types);
+                .filter((s) => !!s));
+    // convert to Array
+    mimeTypes = convertToArray(mimeTypes);
+
+    intent.setType('*/*');
+    if(mimeTypes){
+        intent.putExtra(android.content.Intent.EXTRA_MIME_TYPES, mimeTypes);
+    }
+
     intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
     intent.setAction(android.content.Intent.ACTION_OPEN_DOCUMENT);
     // const intent = new android.content.Intent(androidApp.foregroundActivity, FilePickerActivity.class);
