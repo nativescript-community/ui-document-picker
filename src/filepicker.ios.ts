@@ -74,8 +74,6 @@ export function openFilePicker(params: FilePickerOptions) {
         const app = UIApplication.sharedApplication;
         const window = app.keyWindow || (app.windows.count > 0 && app.windows[0]);
         const visibleVC = Utils.ios.getVisibleViewController(window.rootViewController);
-        visibleVC.presentViewControllerAnimatedCompletion(controller, true, ()=>{
-            console.log('Done');
-        });
+        visibleVC.presentViewControllerAnimatedCompletion(controller, true, null);
     });
 }
