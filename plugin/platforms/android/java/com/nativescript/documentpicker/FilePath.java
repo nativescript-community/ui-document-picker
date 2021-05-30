@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.util.Log;
@@ -13,10 +12,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONException;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -38,32 +33,6 @@ public class FilePath {
 
     public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
 
-
-
-    // public static String resolveNativePath() throws JSONException {
-    //     /* content:///... */
-    //     Uri pvUrl = Uri.parse(this.uriStr);
-
-    //     Log.d(TAG, "URI: " + this.uriStr);
-
-    //     Context appContext = this.cordova.getActivity().getApplicationContext();
-    //     String filePath = getPath(appContext, pvUrl);
-
-    //     //check result; send error/success callback
-    //     if (filePath == GET_PATH_ERROR_ID) {
-
-    //         throw new java.lang.Exception("Unable to resolve filesystem path");
-    //     }
-    //     else if (filePath.equals(GET_CLOUD_PATH_ERROR_ID)) {
-
-    //         throw new java.lang.Exception("Files from cloud cannot be resolved to filesystem, download is required");
-    //     }
-    //     else {
-    //         Log.d(TAG, "Filepath: " + filePath);
-
-    //         return "file://" + filePath;
-    //     }
-    // }
 
     /**
      * @param uri The Uri to check.
@@ -130,6 +99,37 @@ public class FilePath {
                     null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    private static String getMediaStore(Context context, Uri uri, String selection,
+                                        String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String[] projection = {
+                android.provider.MediaStore.Files.FileColumns.DISPLAY_NAME
+        };
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(android.provider.MediaStore.Files.FileColumns.DISPLAY_NAME);
                 return cursor.getString(column_index);
             }
         } finally {
@@ -237,6 +237,7 @@ public class FilePath {
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -266,13 +267,13 @@ public class FilePath {
                     }
                 } finally {
                     if (cursor != null)
-                    cursor.close();
+                        cursor.close();
                 }
                 //
                 final String id = DocumentsContract.getDocumentId(uri);
                 try {
                     final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                     return getDataColumn(context, contentUri, null, null);
                 } catch(NumberFormatException e) {
@@ -282,10 +283,12 @@ public class FilePath {
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
+
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
+                Log.i(TAG, type);
                 Uri contentUri = null;
                 if ("image".equals(type)) {
                     contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -293,6 +296,8 @@ public class FilePath {
                     contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
                 } else if ("audio".equals(type)) {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                } else {
+                    contentUri = MediaStore.Files.getContentUri("external");
                 }
 
                 final String selection = "_id=?";
@@ -300,7 +305,11 @@ public class FilePath {
                         split[1]
                 };
 
-                return getDataColumn(context, contentUri, selection, selectionArgs);
+                try {
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                } catch (Exception e) {
+                    return getMediaStore(context, contentUri, null, null);
+                }
             }
             else if(isGoogleDriveUri(uri)){
                 return getDriveFilePath(uri,context);
@@ -308,7 +317,6 @@ public class FilePath {
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
             // Return the remote address
             if (isGooglePhotosUri(uri)) {
                 String contentPath = getContentFromSegments(uri.getPathSegments());
@@ -321,10 +329,15 @@ public class FilePath {
             }
 
             if(isGoogleDriveUri(uri)){
+                Log.i(TAG, "4");
                 return getDriveFilePath(uri,context);
             }
 
-            return getDataColumn(context, uri, null, null);
+            try {
+                return getDataColumn(context, uri, null, null);
+            } catch (Exception ex) {
+                return getMediaStore(context, uri, null, null);
+            }
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
@@ -338,10 +351,10 @@ public class FilePath {
         Uri returnUri =uri;
         Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
         /*
-        * Get the column indexes of the data in the Cursor,
-        *     * move to the first row in the Cursor, get the data,
-        *     * and display it.
-        * */
+         * Get the column indexes of the data in the Cursor,
+         *     * move to the first row in the Cursor, get the data,
+         *     * and display it.
+         * */
         int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
         int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
         returnCursor.moveToFirst();
