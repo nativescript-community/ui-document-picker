@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.6](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.5...v1.1.6) (2021-06-28)
+
+
+### Reverts
+
+* Revert "v1.1.6" ([ef0be58](https://github.com/nativescript-community/ui-document-picker/commit/ef0be58589aa75a6be4a85b2837b6f968c341b08))
+
+
+
+
+
 ## [1.1.5](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.4...v1.1.5) (2021-05-19)
 
 **Note:** Version bump only for package @nativescript-community/ui-document-picker

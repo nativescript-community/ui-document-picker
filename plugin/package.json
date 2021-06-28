@@ -1,6 +1,6 @@
 {
   "name": "@nativescript-community/ui-document-picker",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "File Picker",
   "main": "./filepicker",
   "typings": "./filepicker.d.ts",
