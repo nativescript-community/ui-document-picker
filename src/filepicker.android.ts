@@ -1,6 +1,9 @@
-import { AndroidActivityResultEventData, AndroidApplication, android as androidApp } from '@nativescript/core/application';
 import { request } from '@nativescript-community/perms';
+import {
+  android as androidApp, AndroidActivityResultEventData, AndroidApplication,
+} from '@nativescript/core/application';
 import { FilePickerOptions } from './filepicker.common';
+
 export { FilePickerOptions };
 
 function callIntent(context, intent, pickerType) {
@@ -163,6 +166,25 @@ export function openFilePicker(params: FilePickerOptions) {
                     return {
                         files: [(com as any).nativescript.documentpicker.FilePath.getPath(context, uri)],
                         android: uri,
+                    };
+                }
+
+                const clip: android.content.ClipData = (result.intent as android.content.Intent).getClipData();
+                if (clip) {
+                    const count = clip.getItemCount();
+                    const files: string[] = [];
+                    for (let i = 0; i < count; i++) {
+                        const item: android.content.ClipData.Item = clip.getItemAt(i);
+                        if (item) {
+                            const uri: android.net.Uri = item.getUri();
+                            if (uri) {
+                                files.push((com as any).nativescript.documentpicker.FilePath.getPath(context, uri));
+                            }
+                        }
+                    }
+                    return {
+                        files,
+                        android: clip,
                     };
                 }
             }
