@@ -20,6 +20,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         this._resolve = null;
         this._reject = null;
         controller.delegate = null;
+        delegate = null;
     }
 
     public documentPickerDidPickDocumentAtURL(controller: UIDocumentPickerViewController, url: NSURL) {
@@ -49,7 +50,9 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         this.cleanup(controller);
     }
 }
-
+// Reference to delegate instance to avoid delegate issue
+// https://github.com/nativescript-community/ui-document-picker/issues/10
+let delegate;
 export function openFilePicker(params: FilePickerOptions) {
     // const options = params;
     let documentTypes;
@@ -57,13 +60,13 @@ export function openFilePicker(params: FilePickerOptions) {
     if (params.extensions && params.extensions.length > 0) {
         documentTypes = Utils.ios.collections.jsArrayToNSArray(params.extensions);
     }
-    let delegate;
+
     return new Promise((resolve, reject) => {
         const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
             documentTypes,
             params.pickerMode !== undefined ? params.pickerMode : UIDocumentPickerMode.Import
         );
-        delegate =  DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;
+        delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;
         controller.delegate = delegate;
 
         // if (options.multipleSelection) {
