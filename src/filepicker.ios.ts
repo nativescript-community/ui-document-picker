@@ -20,6 +20,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         this._resolve = null;
         this._reject = null;
         controller.delegate = null;
+        delegate = null;
     }
 
     public documentPickerDidPickDocumentAtURL(controller: UIDocumentPickerViewController, url: NSURL) {
