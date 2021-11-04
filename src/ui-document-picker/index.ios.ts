@@ -1,5 +1,5 @@
 import { Utils } from '@nativescript/core';
-import { FilePickerOptions } from './filepicker.common';
+import { FilePickerOptions } from './index.common';
 export { FilePickerOptions };
 
 @NativeClass

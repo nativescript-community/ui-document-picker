@@ -1,15 +1,22 @@
 module.exports = {
-    env: {
-        browser: true
-    },
-    parser: '@typescript-eslint/parser',
+    extends: ['plugin:prettier/recommended', 'plugin:vue/essential'],
+    plugins: ['prettier', '@typescript-eslint', '@nativescript'],
+    parser: 'vue-eslint-parser',
     parserOptions: {
-        createDefaultProgram: true,
-        project: 'tsconfig.json',
-        sourceType: 'module'
+        ecmaVersion: 2019,
+        sourceType: 'module',
+        extraFileExtensions: ['.vue', '.svelte'],
+        parser: '@typescript-eslint/parser',
+        project: 'tsconfig.eslint.json',
+        warnOnUnsupportedTypeScriptVersion: false,
+        tsconfigRootDir: __dirname
     },
-    plugins: ['@typescript-eslint'],
     rules: {
+        'prettier/prettier': 'warn',
+        'vue/custom-event-name-casing': 'off',
+        '@nativescript/no-nativescript-angular-imports': 'warn',
+        '@nativescript/no-tns-core-modules-imports': 'warn',
+        '@nativescript/no-duplicate-ns-imports': 'warn',
         '@typescript-eslint/adjacent-overload-signatures': 'error',
         '@typescript-eslint/array-type': 'error',
         '@typescript-eslint/await-thenable': 'error',
@@ -33,7 +40,7 @@ module.exports = {
                 FunctionExpression: {
                     parameters: 'first'
                 },
-                SwitchCase:1
+                SwitchCase: 1
             }
         ],
         '@typescript-eslint/interface-name-prefix': 'off',
@@ -92,12 +99,10 @@ module.exports = {
         'linebreak-style': 'off',
         'max-classes-per-file': 'off',
         'max-len': [
-            1,
+            'off',
             {
-                // ignorePattern: '^import |^export {(.*?)}',
-                code: 130,
-                'ignoreRegExpLiterals': true,
-                'ignoreComments': true
+                ignorePattern: '^import |^export {(.*?)}',
+                code: 200
             }
         ],
         'new-parens': 'off',
@@ -145,7 +150,7 @@ module.exports = {
         'no-irregular-whitespace': 'off',
         'no-multiple-empty-lines': 'off',
         'no-new-wrappers': 'error',
-        'no-redeclare': 'error',
+        'no-redeclare': ['error', { builtinGlobals: false }],
         'no-regex-spaces': 'error',
         'no-return-await': 'error',
         'no-shadow': [

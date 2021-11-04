@@ -1,60 +1,112 @@
 {
-  "name": "@nativescript-community/ui-document-picker",
-  "version": "1.0.0",
-  "description": "Document Picker without using 3rd party libraries",
-  "scripts": {
-    "setup": "ts-patch install",
-"prepare": "npm run setup",
-    "tsc": "cpy '**/*.d.ts' '../plugin' --parents --cwd=src && tsc -skipLibCheck",
-    "build": "npm run tsc",
-    "publish": "npm run setup &&  \\cp README.md plugin/ && npm run build && lerna publish --create-release=github --force-publish",
-    "tslint": "tslint \"src/**/*.ts\" --config tslint.json --exclude \"**/node_modules/**\"",
-    "plugin.tscwatch": "npm run tsc -- -w",
-    "demo.ios": "npm i && npm run tsc && cd demo && tns run ios",
-    "clean": "rimraf plugin/ios plugin/android plugin/**/*.d.ts plugin/**/*.js plugin/**/*.js.map plugin/node_modules plugin/package-lock.json",
-    "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nativescript-community/ui-document-picker.git"
-  },
-  "keywords": [
-    "ecosystem:NativeScript",
-    "NativeScript"
-  ],
-  "author": {
-    "name": "Martin Guillon",
-    "email": "martin@akylas.fr"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nativescript-community/ui-document-picker/issues"
-  },
-  "homepage": "https://github.com/nativescript-community/ui-document-picker",
-  "devDependencies": {
-    "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2",
-    "@nativescript/core": "7.0.0",
-    "@nativescript/types-android": "7.0.2",
-    "@nativescript/types-ios": "7.0.1",
-    "@nativescript/webpack": "~3.0.1",
-    "@nativescript-community/perms": "^2.1.0",
-    "@types/node": "^14.6.4",
-    "@typescript-eslint/eslint-plugin": "4.0.1",
-    "@typescript-eslint/parser": "4.0.1",
-    "cpy-cli": "^3.1.1",
-    "eslint": "7.8.1",
-    "husky": "^4.2.5",
-    "lerna": "^3.22.1",
-    "npm-watch": "^0.7.0",
-    "prompt": "^1.0.0",
-    "rimraf": "^3.0.2",
-    "ts-patch": "1.3.0",
-    "typescript": "~3.9.7"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  }
+    "name": "@nativescript-community/ui-document-picker",
+    "version": "13.0.0",
+    "homepage": "https://github.com/nativescript-community/ui-document-picker#readme",
+    "bugs": {
+        "url": "https://github.com/nativescript-community/ui-document-picker/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nativescript-community/ui-document-picker.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "scripts": {
+        "build": "lerna run build",
+        "build.all": "lerna run build.all",
+        "build.angular": "lerna run build.angular",
+        "clean": "rimraf packages/**/*.d.ts packages/**/*.js packages/**/*.js.map packages/**/*.metadata.json packages/**/*.ngsummary.json node_modules package-lock.json",
+        "commitmsg": "commitlint -e $GIT_PARAMS",
+        "demo.ng.android": "cd ./demo-ng && ns run android --no-hmr",
+        "demo.ng.ios": "cd ./demo-ng && ns run ios --no-hmr",
+        "demo.react.android": "cd ./demo-react && ns run android --no-hmr",
+        "demo.react.ios": "cd ./demo-react && ns run ios --no-hmr",
+        "demo.svelte.android": "cd ./demo-svelte && ns run android --no-hmr",
+        "demo.svelte.ios": "cd ./demo-svelte && ns run ios --no-hmr",
+        "demo.vue.android": "cd ./demo-vue && ns run android --no-hmr",
+        "demo.vue.ios": "cd ./demo-vue && ns run ios --no-hmr",
+        "postinstall": "npm run setup",
+        "publish": "npm run setup && npm run build.all && lerna publish --create-release=github --force-publish",
+        "setup": "npm run submodules && ts-patch install",
+        "start": "./node_modules/.bin/ntl -A -s 15 -o",
+        "submodules": "git submodule update --init",
+        "sync": "node ./tools/sync.js -w && npx sort-package-json",
+        "sync.test": "node ./tools/sync.js",
+        "tsc": "cpy '**/*.d.ts' '../plugin' --parents --cwd=src && tsc -skipLibCheck -d",
+        "watch": "npm run tsc -- -w"
+    },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    },
+    "dependencies": {
+        "ts-node": "^9.0.0"
+    },
+    "devDependencies": {
+        "@angular/animations": "~12.2.4",
+        "@angular/common": "~12.2.5",
+        "@angular/compiler": "~12.2.4",
+        "@angular/compiler-cli": "~12.2.4",
+        "@angular/core": "~12.2.4",
+        "@angular/forms": "~12.2.4",
+        "@angular/platform-browser": "~12.2.4",
+        "@angular/platform-browser-dynamic": "~12.2.4",
+        "@angular/router": "~12.2.4",
+        "@commitlint/cli": "~12.1.4",
+        "@commitlint/config-conventional": "~12.1.4",
+        "@nativescript-community/perms": "^2.2.0",
+        "@nativescript/angular": "~12.2.0",
+        "@nativescript/core": "~8.1.2",
+        "@nativescript/ios": "~8.0.0",
+        "@nativescript/types-android": "~8.1.0",
+        "@nativescript/types-ios": "~8.1.1",
+        "@nativescript/webpack": "~5.0.0",
+        "@types/node": "14.6.4",
+        "@types/react": "16.9.34",
+        "@typescript-eslint/eslint-plugin": "4.1.0",
+        "@typescript-eslint/parser": "4.1.0",
+        "cpy-cli": "^3.1.1",
+        "detox": "17.10.7",
+        "eslint": "7.12.1",
+        "husky": "^4.3.0",
+        "jest": "^26.6.2",
+        "jest-circus": "^26.6.2",
+        "jest-cli": "^26.6.2",
+        "lerna": "^3.22.1",
+        "nativescript-vue": "~2.9.0",
+        "ng-packagr": "~12.2.1",
+        "ntl": "^5.1.0",
+        "package-json-merge": "0.0.1",
+        "patch-package": "~6.4.7",
+        "react-nativescript": "3.0.0-beta.3",
+        "rimraf": "~3.0.2",
+        "rxjs": "~6.5.3",
+        "svelte": "^3.44.0",
+        "svelte-native": "1.0.0-beta.2",
+        "ts-patch": "~1.3.3",
+        "tslib": "2.2.0",
+        "typedoc": "~0.20.36",
+        "typescript": "~4.2.0",
+        "vue": "~2.6.12",
+        "yargs": "^16.1.0",
+        "zone.js": "~0.11.4"
+    },
+    "ntl": {
+        "descriptions": {
+            "build": "Build the plugin",
+            "build.angular": "Build the plugin for Angular",
+            "build.all": "Build the plugin for all platforms",
+            "clean": "Clean the local environment.",
+            "demo.ng.android": "Runs the Angular demo on Android.",
+            "demo.ng.ios": "Runs the Angular demo on iOS.",
+            "demo.react.android": "Runs the React demo on Android.",
+            "demo.react.ios": "Runs the React demo on iOS.",
+            "demo.svelte.android": "Runs the Svelte demo on Android.",
+            "demo.svelte.ios": "Runs the Svelte demo on iOS.",
+            "demo.vue.android": "Runs the Vue demo on Android.",
+            "demo.vue.ios": "Runs the Vue demo on iOS.",
+            "watch": "Watch for changes in the plugin source and re-build."
+        }
+    }
 }

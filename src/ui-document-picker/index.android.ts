@@ -2,7 +2,7 @@ import { request } from '@nativescript-community/perms';
 import {
   android as androidApp, AndroidActivityResultEventData, AndroidApplication,
 } from '@nativescript/core/application';
-import { FilePickerOptions } from './filepicker.common';
+import { FilePickerOptions } from './index.common';
 
 export { FilePickerOptions };
 
