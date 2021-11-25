@@ -225,6 +225,7 @@ public class FilePath {
 
         Log.d(TAG, "File - " +
                 "Authority: " + uri.getAuthority() +
+                ", Path: " + uri.getPath() +
                 ", Fragment: " + uri.getFragment() +
                 ", Port: " + uri.getPort() +
                 ", Query: " + uri.getQuery() +
@@ -260,7 +261,10 @@ public class FilePath {
                     cursor = context.getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
                     if (cursor != null && cursor.moveToFirst()) {
                         String fileName = cursor.getString(0);
-                        String path = Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName;
+                        String folders = android.os.Environment.getExternalStoragePublicDirectory(
+                        android.os.Environment.DIRECTORY_DOWNLOADS
+                        ).getAbsolutePath();
+                        String path = folders + "/" + fileName;
                         if (!TextUtils.isEmpty(path)) {
                             return path;
                         }

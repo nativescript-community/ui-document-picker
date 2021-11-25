@@ -11,6 +11,16 @@ module.exports = {
         warnOnUnsupportedTypeScriptVersion: false,
         tsconfigRootDir: __dirname
     },
+    overrides: [
+        { files: '*.svelte', processor: 'svelte3/svelte3' },
+        {
+            files: '*.ts',
+            rules: {
+                'eslint-plugin-svelte3/parse-error': 'off',
+                'no-undef': 'off'
+            }
+        }
+    ],
     rules: {
         'prettier/prettier': 'warn',
         'vue/custom-event-name-casing': 'off',

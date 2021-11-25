@@ -1,5 +1,5 @@
 import Demo from './Demo.vue';
-export function install() {
+export function installPlugin() {
 }
 
 export const demos = [

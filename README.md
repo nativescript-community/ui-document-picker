@@ -16,7 +16,7 @@ only one function exported
 export interface FilePickerOptions {
     extensions: string[];
     multipleSelection?: boolean;
-    pickerMode?: number;
+    pickerMode?: number; //iOS only
 }
 export function openFilePicker(params: FilePickerOptions): Promise<{ files: string[]; ios?: NSURL; android?: android.net.Uri }>;
 ```
