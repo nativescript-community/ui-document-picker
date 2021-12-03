@@ -18,7 +18,7 @@
         "demo.vue.android": "cd ./demo-vue && ns run android --no-hmr",
         "demo.vue.ios": "cd ./demo-vue && ns run ios --no-hmr",
         "postinstall": "npm run setup",
-        "publish": "npm run setup && npm run build && lerna publish --create-release=github --force-publish",
+        "publish": "npm run setup && npm run build.all && lerna publish --create-release=github --force-publish",
         "setup": "npm run submodules && ts-patch install",
         "start": "./node_modules/.bin/ntl -A -s 15 -o",
         "submodules": "git submodule update --init",
@@ -28,7 +28,8 @@
         "watch": "npm run tsc -- -w",
         "demo.vue.clean": "cd ./demo-vue && ns clean",
         "readme": "node ./tools/readme.js",
-        "update": "node ./tools/update.js"
+        "update": "node ./tools/update.js",
+        "build.all": "npm run build"
     },
     "commitlint": {
         "extends": [
@@ -42,6 +43,7 @@
     "ntl": {
         "descriptions": {
             "build": "Build the plugin",
+            "build.all": "Build the plugin for all platforms",
             "clean": "Clean the local environment.",
             "demo.vue.android": "Runs the Vue demo on Android.",
             "demo.vue.ios": "Runs the Vue demo on iOS.",
