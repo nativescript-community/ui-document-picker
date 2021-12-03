@@ -100,6 +100,8 @@ public class FilePath {
             if (cursor != null && cursor.moveToFirst()) {
                 final int column_index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(column_index);
+            } else if (!cursor.moveToFirst()){
+                return getMediaStore(context, uri, null, null);
             }
         } finally {
             if (cursor != null)
