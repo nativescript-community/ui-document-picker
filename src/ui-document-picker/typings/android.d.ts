@@ -936,22 +936,6 @@ declare module com {
 					public static getStorageId(param0: androidx.documentfile.provider.DocumentFile, param1: globalAndroid.content.Context): string;
 					public static search(param0: androidx.documentfile.provider.DocumentFile, param1: boolean, param2: com.anggrayudi.storage.file.DocumentFileType, param3: androidNative.Array<string>): java.util.List<androidx.documentfile.provider.DocumentFile>;
 				}
-				export module DocumentFileUtils {
-					export class WhenMappings extends java.lang.Object {
-						public static class: java.lang.Class<com.anggrayudi.storage.file.DocumentFileUtils.WhenMappings>;
-					}
-					export module copyTo {
-					export module WhenMappings {
-						export class SourceInfo extends java.lang.Object {
-							public static class: java.lang.Class<com.anggrayudi.storage.file.DocumentFileUtils.copyTo.SourceInfo>;
-							public getSize(): number;
-							public getConflictResolution(): com.anggrayudi.storage.callback.FolderCallback.ConflictResolution;
-							public getChildren(): java.util.List<androidx.documentfile.provider.DocumentFile>;
-							public constructor(param0: java.util.List<any>, param1: number, param2: number, param3: com.anggrayudi.storage.callback.FolderCallback.ConflictResolution);
-							public getTotalFiles(): number;
-						}
-					}
-				}
 			}
 		}
 	}

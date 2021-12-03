@@ -1,4 +1,5 @@
-import { FilePickerOptions } from './index.common';
+import { FilePickerOptions, FolderPickerOptions } from './index.common';
 
-export { FilePickerOptions };
-export function openFilePicker(params: FilePickerOptions): Promise<{ files: string[]; ios?; android? }>;
+export { FilePickerOptions, FolderPickerOptions };
+export function openFilePicker(params?: FilePickerOptions): Promise<{ files: string[]; ios?; android? }>;
+export function pickFolder(params?: FolderPickerOptions): Promise<{ folders: string[]; ios?; android? }>;

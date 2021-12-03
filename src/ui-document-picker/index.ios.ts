@@ -1,4 +1,5 @@
 import { Utils } from '@nativescript/core';
+import { FolderPickerOptions } from '.';
 import { FilePickerOptions } from './index.common';
 export { FilePickerOptions };
 
@@ -26,7 +27,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
     public documentPickerDidPickDocumentAtURL(controller: UIDocumentPickerViewController, url: NSURL) {
         this._resolve({
             files: [url.absoluteString],
-            ios: url,
+            ios: url
         });
         this.cleanup(controller);
     }
@@ -38,14 +39,14 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         }
         this._resolve({
             files: output,
-            ios: urls,
+            ios: urls
         });
         this.cleanup(controller);
     }
 
     public documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
         this._resolve({
-            files: [],
+            files: []
         });
         this.cleanup(controller);
     }
@@ -79,4 +80,9 @@ export function openFilePicker(params: FilePickerOptions) {
         const visibleVC = Utils.ios.getVisibleViewController(window.rootViewController);
         visibleVC.presentViewControllerAnimatedCompletion(controller, true, null);
     });
+}
+export async function pickFolder(params: FolderPickerOptions = {}) {
+    return {
+        folders: []
+    };
 }
