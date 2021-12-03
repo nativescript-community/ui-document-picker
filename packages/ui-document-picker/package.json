@@ -1,13 +1,13 @@
 {
     "name": "@nativescript-community/ui-document-picker",
-    "version": "13.0.32",
-    "description": "A NativeScript Pager / Carousel component that allows the user to swipe left and right through pages of data. ",
+    "version": "1.1.7",
+    "description": "A NativeScript plugin that allows you to select files from the device.",
     "main": "index",
     "typings": "index.d.ts",
     "sideEffects": false,
     "scripts": {
-        "build": "npm run tsc",
-        "build.all": "npm run build",
+        "build": "npm run tsc && npm run readme",
+        "readme": "../../node_modules/.bin/readme generate -c ../../tools/readme/blueprint.json",
         "tsc": "../../node_modules/.bin/cpy '**/*.d.ts' '../../packages/ui-document-picker' --parents --cwd=../../src/ui-document-picker && ../../node_modules/.bin/tsc -skipLibCheck -d",
         "clean": "../../node_modules/.bin/rimraf ./*.d.ts ./*.js ./*.js.map"
     },
@@ -22,32 +22,13 @@
         "JavaScript",
         "Android",
         "iOS",
-        "pager",
-        "viewpager",
-        "UIPageViewController",
-        "slides",
-        "Carousel",
-        "ng",
-        "angular",
         "vue",
-        "vue.js",
-        "react",
-        "svelte",
-        "nativescript-angular",
-        "nativescript-vue",
-        "preview|https://raw.githubusercontent.com/nativescript-community/ui-document-picker/master/images/demo-ios.gif|iOS Demo",
-        "preview|https://raw.githubusercontent.com/nativescript-community/ui-document-picker/master/images/demo-android.gif|Android Demo"
+        "vue.js"
     ],
     "author": {
         "name": "Martin Guillon",
         "email": "martin@akylas.fr"
     },
-    "contributors": [
-        {
-            "name": "Osei Fortune",
-            "email": "fortune.osei@yahoo.com"
-        }
-    ],
     "bugs": {
         "url": "https://github.com/nativescript-community/ui-document-picker/issues"
     },

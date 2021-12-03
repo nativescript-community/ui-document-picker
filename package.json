@@ -13,15 +13,8 @@
     "author": "",
     "scripts": {
         "build": "lerna run build",
-        "build.all": "lerna run build.all",
         "clean": "rimraf packages/**/*.d.ts packages/**/*.js packages/**/*.js.map packages/**/*.metadata.json packages/**/*.ngsummary.json node_modules package-lock.json",
         "commitmsg": "commitlint -e $GIT_PARAMS",
-        "demo.ng.android": "cd ./demo-ng && ns run android --no-hmr",
-        "demo.ng.ios": "cd ./demo-ng && ns run ios --no-hmr",
-        "demo.react.android": "cd ./demo-react && ns run android --no-hmr",
-        "demo.react.ios": "cd ./demo-react && ns run ios --no-hmr",
-        "demo.svelte.android": "cd ./demo-svelte && ns run android --no-hmr",
-        "demo.svelte.ios": "cd ./demo-svelte && ns run ios --no-hmr",
         "demo.vue.android": "cd ./demo-vue && ns run android --no-hmr",
         "demo.vue.ios": "cd ./demo-vue && ns run ios --no-hmr",
         "postinstall": "npm run setup",
@@ -33,9 +26,6 @@
         "sync.test": "node ./tools/sync.js",
         "tsc": "cpy '**/*.d.ts' '../plugin' --parents --cwd=src && tsc -skipLibCheck -d",
         "watch": "npm run tsc -- -w",
-        "demo.ng.clean": "cd ./demo-ng && ns clean",
-        "demo.react.clean": "cd ./demo-react && ns clean",
-        "demo.svelte.clean": "cd ./demo-svelte && ns clean",
         "demo.vue.clean": "cd ./demo-vue && ns clean",
         "readme": "node ./tools/readme.js",
         "update": "node ./tools/update.js"
@@ -53,12 +43,6 @@
         "descriptions": {
             "build": "Build the plugin",
             "clean": "Clean the local environment.",
-            "demo.ng.android": "Runs the Angular demo on Android.",
-            "demo.ng.ios": "Runs the Angular demo on iOS.",
-            "demo.react.android": "Runs the React demo on Android.",
-            "demo.react.ios": "Runs the React demo on iOS.",
-            "demo.svelte.android": "Runs the Svelte demo on Android.",
-            "demo.svelte.ios": "Runs the Svelte demo on iOS.",
             "demo.vue.android": "Runs the Vue demo on Android.",
             "demo.vue.ios": "Runs the Vue demo on iOS.",
             "watch": "Watch for changes in the plugin source and re-build."

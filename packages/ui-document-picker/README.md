@@ -1,4 +1,4 @@
-<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️--><!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
 <!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -35,9 +35,6 @@
 
 [](#table-of-contents)
 
-
-[](#table-of-contents)
-
 ## Table of Contents
 
 * [Installation](#installation)
@@ -54,9 +51,6 @@
 
 [](#installation)
 
-
-[](#installation)
-
 ## Installation
 Run the following command from the root of your project:
 
@@ -65,15 +59,9 @@ Run the following command from the root of your project:
 
 [](#configuration)
 
-
-[](#configuration)
-
 ## Configuration
 
 Add any other additional configuration instructions here.
-
-
-[](#api)
 
 
 [](#api)
@@ -98,9 +86,6 @@ export function openFilePicker(params: FilePickerOptions): Promise<{ files: stri
 
 - [Picker Demo](demo-snippets/vue/Demo.vue)
   - A very basic picker demo.
-
-
-[](#demos-and-development)
 
 
 [](#demos-and-development)
@@ -140,9 +125,6 @@ npm run demo.[ng|react|svelte|vue].[ios|android]
 
 npm run demo.svelte.ios # Example
 ```
-
-[](#questions)
-
 
 [](#questions)
 
