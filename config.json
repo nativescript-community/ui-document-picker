@@ -1,10 +1,7 @@
 {
-    "type": "single",
+    "readme": true,
     "angular": false,
     "demos": [
-        "ng",
-        "react",
-        "svelte",
         "vue"
     ]
 }
