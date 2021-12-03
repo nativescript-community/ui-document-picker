@@ -13,6 +13,7 @@
     "author": "",
     "scripts": {
         "build": "lerna run build",
+        "build.all": "lerna run build.all",
         "clean": "rimraf packages/**/*.d.ts packages/**/*.js packages/**/*.js.map packages/**/*.metadata.json packages/**/*.ngsummary.json node_modules package-lock.json",
         "commitmsg": "commitlint -e $GIT_PARAMS",
         "demo.ng.android": "cd ./demo-ng && ns run android --no-hmr",

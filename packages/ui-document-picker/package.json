@@ -7,8 +7,7 @@
     "sideEffects": false,
     "scripts": {
         "build": "npm run tsc",
-        "build.all": "npm run build && npm run build.angular",
-        "build.angular": "../../node_modules/.bin/ng-packagr -p ../../src/ui-document-picker/angular/package.json -c ../../src/ui-document-picker/angular/tsconfig.json",
+        "build.all": "npm run buil",
         "tsc": "../../node_modules/.bin/cpy '**/*.d.ts' '../../packages/ui-document-picker' --parents --cwd=../../src/ui-document-picker && ../../node_modules/.bin/tsc -skipLibCheck -d",
         "clean": "../../node_modules/.bin/rimraf ./*.d.ts ./*.js ./*.js.map"
     },
