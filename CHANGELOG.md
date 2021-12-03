@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.32](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.7...v13.0.32) (2021-12-03)
+
+
+### Bug Fixes
+
+* **android:** add basic support for android scope storage ([c9de628](https://github.com/nativescript-community/ui-document-picker/commit/c9de6286140c602fceeed4f9aaf635c8b29b41f9))
+
+
+
+
+
 ## [1.1.7](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.6...v1.1.7) (2021-08-25)
 
 **Note:** Version bump only for package @nativescript-community/ui-document-picker
