@@ -1,6 +1,6 @@
 {
     "type": "single",
-    "angular": true,
+    "angular": false,
     "demos": [
         "ng",
         "react",
