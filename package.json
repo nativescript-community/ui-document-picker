@@ -13,8 +13,6 @@
     "author": "",
     "scripts": {
         "build": "lerna run build",
-        "build.all": "lerna run build.all",
-        "build.angular": "lerna run build.angular",
         "clean": "rimraf packages/**/*.d.ts packages/**/*.js packages/**/*.js.map packages/**/*.metadata.json packages/**/*.ngsummary.json node_modules package-lock.json",
         "commitmsg": "commitlint -e $GIT_PARAMS",
         "demo.ng.android": "cd ./demo-ng && ns run android --no-hmr",
@@ -53,8 +51,6 @@
     "ntl": {
         "descriptions": {
             "build": "Build the plugin",
-            "build.angular": "Build the plugin for Angular",
-            "build.all": "Build the plugin for all platforms",
             "clean": "Clean the local environment.",
             "demo.ng.android": "Runs the Angular demo on Android.",
             "demo.ng.ios": "Runs the Angular demo on iOS.",
