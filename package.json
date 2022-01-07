@@ -13,7 +13,7 @@
     "author": "",
     "scripts": {
         "build": "lerna run build",
-        "clean": "rimraf packages/**/*.d.ts packages/**/*.js packages/**/*.js.map packages/**/*.metadata.json packages/**/*.ngsummary.json node_modules package-lock.json",
+        "clean": "rimraf 'packages/**/*.d.ts' 'packages/**/*.js' 'packages/**/*.js.map' 'packages/**/*.metadata.json' 'packages/**/*.ngsummary.json' 'packages/**/*.mjs' 'packages/**/*.mjs.map' 'packages/**/node_modules' 'packages/**/angular/package.json' 'package-lock.json' 'pnpm-lock.yaml' 'node_modules'",
         "commitmsg": "commitlint -e $GIT_PARAMS",
         "demo.vue.android": "cd ./demo-vue && ns run android --no-hmr",
         "demo.vue.ios": "cd ./demo-vue && ns run ios --no-hmr",
