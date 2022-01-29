@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.9](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.8...v1.1.9) (2022-01-29)
+
+
+### Bug Fixes
+
+* **android:** fixed path on some devices ([97881c8](https://github.com/nativescript-community/ui-document-picker/commit/97881c808dee5fb4f78339e2562482554dbe3bc4))
+* **android:** remove `MANAGE_EXTERNAL_STORAGE` as it prevents app release ([564a5b3](https://github.com/nativescript-community/ui-document-picker/commit/564a5b3706c9bdd2ba9be963e77b7f03bd5f6eb4))
+* demo snippets package json ([66e0faf](https://github.com/nativescript-community/ui-document-picker/commit/66e0fafb85037956c81a85e891b53a7291f3aaa2))
+* minSdkVersion for demo ([02d4bc8](https://github.com/nativescript-community/ui-document-picker/commit/02d4bc821c93f7326d9ffc4136528220ad7c711a))
+
+
+
+
+
 ## [1.1.8](https://github.com/nativescript-community/ui-document-picker/compare/v13.0.32...v1.1.8) (2021-12-03)
 
 
