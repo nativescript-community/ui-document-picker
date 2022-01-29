@@ -209,6 +209,11 @@ public class FilePath {
             return fullPath;
         }
 
+        fullPath = "/storage/" + type + relativePath;
+        if (fileExists(fullPath)) {
+            return fullPath;
+        }
+
         return fullPath;
     }
 
