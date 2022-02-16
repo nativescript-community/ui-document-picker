@@ -1,5 +1,5 @@
 dependencies {
-    def storageVersion =  project.hasProperty("storageVersion") ? project.storageVersion : "0.13.0"
-    implementation "com.anggrayudi:storage:$storageVersion"
+    // def storageVersion =  project.hasProperty("storageVersion") ? project.storageVersion : "0.13.0"
+    // implementation "com.anggrayudi:storage:$storageVersion"
 
 }
