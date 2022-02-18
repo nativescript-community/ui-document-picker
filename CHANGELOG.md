@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.12](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.11...v1.1.12) (2022-02-18)
+
+
+### Bug Fixes
+
+* **ios:** allow no param + default to all files ([6304099](https://github.com/nativescript-community/ui-document-picker/commit/6304099cf5c29c2b25bd19f2a35d97390ad716cf))
+
+
+
+
+
 ## [1.1.11](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.10...v1.1.11) (2022-02-16)
 
 
