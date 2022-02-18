@@ -54,12 +54,14 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
 // Reference to delegate instance to avoid delegate issue
 // https://github.com/nativescript-community/ui-document-picker/issues/10
 let delegate;
-export function openFilePicker(params: FilePickerOptions) {
+export function openFilePicker(params: FilePickerOptions = {}) {
     // const options = params;
     let documentTypes;
 
     if (params.extensions && params.extensions.length > 0) {
         documentTypes = Utils.ios.collections.jsArrayToNSArray(params.extensions);
+    } else {
+        documentTypes = Utils.ios.collections.jsArrayToNSArray([kUTTypeContent]);
     }
 
     return new Promise((resolve, reject) => {
