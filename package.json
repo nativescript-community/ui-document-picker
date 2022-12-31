@@ -51,8 +51,6 @@
         }
     },
     "dependenciesMeta": {
-        "@nativescript-community/plugin-seed-tools": {
-            "injected": true
-        }
+        "@nativescript-community/plugin-seed-tools": {}
     }
 }
