@@ -1,11 +1,22 @@
 {
-  "packages": [
-    "packages/*"
-  ],
   "version": "1.1.12",
-  "command": {
-    "publish": {
-      "conventionalCommits": true
-    }
-  }
+  "packages": [
+        "packages/*"
+    ],
+    "npmClient": "yarn",
+    "useWorkspaces": true,
+    "command": {
+        "publish": {
+            "conventionalCommits": true,
+            "ignoreChanges": [
+                "ignored-file",
+                "*.md"
+            ]
+        },
+        "bootstrap": {
+            "npmClientArgs": [
+                "--no-package-lock"
+            ]
+        }
+    },
 }
