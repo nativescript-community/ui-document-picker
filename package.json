@@ -51,9 +51,6 @@
             "watch": "Watch for changes in the plugin source and re-build."
         }
     },
-    "dependenciesMeta": {
-        "@nativescript-community/plugin-seed-tools": {}
-    },
     "workspaces": [
         "packages/*",
         "demo-vue",
