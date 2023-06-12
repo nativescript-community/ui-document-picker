@@ -17,7 +17,7 @@
         "demo.vue.android": "cd ./demo-vue && ns run android --no-hmr --env.watchNodeModules",
         "demo.vue.ios": "cd ./demo-vue && ns run ios --no-hmr --env.watchNodeModules",
         "postinstall": "npm run setup",
-        "publish": "npm run clean && npm run build.all && npm run readme && lerna publish --no-private --create-release=github --force-publish",
+        "publish": "npm run clean ; npm run build.all ; npm run readme ; npm run doc ; npm run commit_readme_doc_changes ; lerna publish",
         "setup": "npm run submodules && ts-patch install",
         "start": "./node_modules/.bin/ntl -A -s 15 -o",
         "submodules": "git submodule update --init",
@@ -30,7 +30,8 @@
         "update": "node ./tools/update.js",
         "build.all": "npm run build",
         "fullclean": "npm run clean && rimraf 'packages/**/node_modules' 'demo-*/hooks' 'demo-*/node_modules' 'package-lock.json' 'pnpm-lock.yaml' 'node_modules'",
-        "doc": "node tools/builddoc.mjs"
+        "doc": "node tools/builddoc.mjs",
+        "commit_readme_doc_changes": "git add docs *.md ; git commit -m \"readme/doc\""
     },
     "commitlint": {
         "extends": [
@@ -38,7 +39,7 @@
         ]
     },
     "dependencies": {
-        "@nativescript-community/perms": "2.2.2",
+        "@nativescript-community/perms": "2.3.0",
         "@nativescript-community/plugin-seed-tools": "file:tools"
     },
     "ntl": {

@@ -2191,13 +2191,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nativescript-community/perms@npm:2.2.2":
-  version: 2.2.2
-  resolution: "@nativescript-community/perms@npm:2.2.2"
-  checksum: 4605feb2714ee4581b8ff467559d0e2549602da4234ada3f23b197d15828827e0be9e33b0035231137e6c5c2eb804fa8ca62f10d92fbe406e8a7a63e4c654e11
-  languageName: node
-  linkType: hard
-
 "@nativescript-community/perms@npm:2.2.5":
   version: 2.2.5
   resolution: "@nativescript-community/perms@npm:2.2.5"
@@ -2205,9 +2198,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nativescript-community/perms@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@nativescript-community/perms@npm:2.3.0"
+  checksum: aa3c1a0cb0d6a5898fca88abed449bb4255aee37ca83a22cc97cacce1f5b9487bf1aba8dbabca8e38f040b329180c86bc31dd5d3b77c7a79161e623b9dc69a68
+  languageName: node
+  linkType: hard
+
 "@nativescript-community/plugin-seed-tools@file:tools::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.0.0
-  resolution: "@nativescript-community/plugin-seed-tools@file:tools#tools::hash=9bfd32&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@nativescript-community/plugin-seed-tools@file:tools#tools::hash=378192&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@angular/animations": ~14.2.12
     "@angular/common": ~14.2.12
@@ -2266,7 +2266,7 @@ __metadata:
     vue: ~2.6.14
     yargs: ^17.6.2
     zone.js: ~0.12.0
-  checksum: fb291c67d524f3d2594301c09a508a61603acd005ab85e7c3f8be560a395af76023df5843ed11e34d3cead5e99fbd79fbc92fb18ddb8c4719438ea904b41a5b5
+  checksum: 9426a5a2115bd4b637b20c0a335c09a99e7c70e68e26be66989edf127d1b64a2d1a7cd452c02f6acbdf24ffd011d47bc17ae500c74e3164f9e74b26399921079
   languageName: node
   linkType: hard
 
@@ -13237,7 +13237,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@nativescript-community/perms": 2.2.2
+    "@nativescript-community/perms": 2.3.0
     "@nativescript-community/plugin-seed-tools": "file:tools"
   languageName: unknown
   linkType: soft
