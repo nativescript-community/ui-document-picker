@@ -61,7 +61,7 @@ export function openFilePicker(params: FilePickerOptions = {}) {
     if (params.extensions && params.extensions.length > 0) {
         documentTypes = Utils.ios.collections.jsArrayToNSArray(params.extensions);
     } else {
-        documentTypes = Utils.ios.collections.jsArrayToNSArray([kUTTypeContent]);
+        documentTypes = Utils.ios.collections.jsArrayToNSArray([UTTypeContent.identifier]);
     }
 
     return new Promise((resolve, reject) => {

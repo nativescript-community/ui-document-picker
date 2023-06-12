@@ -39,6 +39,6 @@
     "license": "Apache-2.0",
     "readmeFilename": "README.md",
     "dependencies": {
-        "@nativescript-community/perms": "2.2.5"
+        "@nativescript-community/perms": "^2.3.0"
     }
 }

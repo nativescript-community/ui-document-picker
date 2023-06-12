@@ -1,6 +1,5 @@
 import { request } from '@nativescript-community/perms';
-import { AndroidActivityResultEventData, android as androidApp } from '@nativescript/core/application';
-import { AndroidApplication, Device } from '@nativescript/core';
+import { AndroidActivityResultEventData, AndroidApplication, Application, Device } from '@nativescript/core';
 import lazy from '@nativescript/core/utils/lazy';
 import { CommonPickerOptions, FilePickerOptions, FolderPickerOptions } from './index.common';
 
@@ -16,10 +15,10 @@ async function callIntent(context, intent, pickerType) {
         const onEvent = function (e: AndroidActivityResultEventData) {
             if (e.requestCode === pickerType) {
                 resolve(e);
-                androidApp.off(AndroidApplication.activityResultEvent, onEvent);
+                Application.android.off(AndroidApplication.activityResultEvent, onEvent);
             }
         };
-        androidApp.once(AndroidApplication.activityResultEvent, onEvent);
+        Application.android.once(AndroidApplication.activityResultEvent, onEvent);
         context.startActivityForResult(intent, pickerType);
     });
 }
@@ -63,7 +62,7 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
-    const context = androidApp.foregroundActivity || androidApp.startActivity;
+    const context = Application.android.foregroundActivity || Application.android.startActivity;
     const FILE_CODE = 1231;
 
     if (!Intent) {
@@ -157,7 +156,7 @@ function updatePersistableUris(context: android.content.Context, uri: android.ne
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
-    const context = androidApp.foregroundActivity || androidApp.startActivity;
+    const context = Application.android.foregroundActivity || Application.android.startActivity;
     const FOLDER_CODE = 1232;
     if (!Intent) {
         Intent = android.content.Intent;
