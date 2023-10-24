@@ -13,3 +13,9 @@ export interface FilePickerOptions extends CommonPickerOptions {
     pickerMode?: number;
 }
 export interface FolderPickerOptions extends CommonPickerOptions {}
+
+export interface SaveFileOptions extends Pick<CommonPickerOptions, 'permissions'> {
+    name: string;
+    data;
+    mimeType?: string;
+}

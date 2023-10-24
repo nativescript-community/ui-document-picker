@@ -1,18 +1,20 @@
-import { Utils } from '@nativescript/core';
+import { Utils, knownFolders } from '@nativescript/core';
 import { FolderPickerOptions } from '.';
-import { FilePickerOptions } from './index.common';
+import { FilePickerOptions, SaveFileOptions } from './index.common';
 export { FilePickerOptions };
 
 @NativeClass
 class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegate {
     private _resolve: Function;
     private _reject: Function;
+    private _booleanResult: boolean;
     public static ObjCProtocols = [UIDocumentPickerDelegate];
 
-    public static initWithResolveReject(resolve, reject) {
+    public static initWithResolveReject(resolve, reject, booleanResult = false) {
         const delegate = DocumentPickerDelegate.new() as DocumentPickerDelegate;
         delegate._resolve = resolve;
         delegate._reject = reject;
+        delegate._booleanResult = booleanResult;
 
         return delegate;
     }
@@ -25,29 +27,41 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
     }
 
     public documentPickerDidPickDocumentAtURL(controller: UIDocumentPickerViewController, url: NSURL) {
-        this._resolve({
-            files: [url.absoluteString],
-            ios: url
-        });
+        this._resolve(
+            this._booleanResult
+                ? true
+                : {
+                      files: [url.absoluteString],
+                      ios: url
+                  }
+        );
         this.cleanup(controller);
     }
 
     public documentPickerDidPickDocumentsAtURLs(controller: UIDocumentPickerViewController, urls: NSArray<NSURL>) {
-        const output = [];
-        for (let i = 0; i < urls.count; i++) {
-            output.push(urls[i].absoluteString);
+        if (this._booleanResult) {
+            this._resolve(true);
+        } else {
+            const output = [];
+            for (let i = 0; i < urls.count; i++) {
+                output.push(urls[i].absoluteString);
+            }
+            this._resolve({
+                files: output,
+                ios: urls
+            });
         }
-        this._resolve({
-            files: output,
-            ios: urls
-        });
         this.cleanup(controller);
     }
 
     public documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
-        this._resolve({
-            files: []
-        });
+        this._resolve(
+            this._booleanResult
+                ? false
+                : {
+                      files: []
+                  }
+        );
         this.cleanup(controller);
     }
 }
@@ -87,4 +101,24 @@ export async function pickFolder(params: FolderPickerOptions = {}) {
     return {
         folders: []
     };
+}
+
+export async function saveFile(params: SaveFileOptions) {
+    return new Promise(async (resolve, reject) => {
+        const tempFile = knownFolders.temp().getFile(params.name);
+        await tempFile.write(params.data);
+        const controller = UIDocumentPickerViewController.alloc().initForExportingURLsAsCopy(
+            [NSURL.URLWithString(tempFile.path)],
+            true
+        );
+        delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject, true) as any;
+        controller.delegate = delegate;
+        controller.shouldShowFileExtensions = true;
+
+        // this.presentViewController(controller);
+        const app = UIApplication.sharedApplication;
+        const window = app.keyWindow || (app.windows.count > 0 && app.windows[0]);
+        const visibleVC = Utils.ios.getVisibleViewController(window.rootViewController);
+        visibleVC.presentViewControllerAnimatedCompletion(controller, true, null);
+    });
 }

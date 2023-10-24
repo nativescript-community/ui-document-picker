@@ -1,7 +1,7 @@
 import { request } from '@nativescript-community/perms';
-import { AndroidActivityResultEventData, AndroidApplication, Application, Device } from '@nativescript/core';
+import { AndroidActivityResultEventData, AndroidApplication, Application, Device, Utils, knownFolders } from '@nativescript/core';
 import lazy from '@nativescript/core/utils/lazy';
-import { CommonPickerOptions, FilePickerOptions, FolderPickerOptions } from './index.common';
+import { CommonPickerOptions, FilePickerOptions, FolderPickerOptions, SaveFileOptions } from './index.common';
 
 export { FilePickerOptions };
 let Intent: typeof android.content.Intent;
@@ -62,7 +62,7 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
-    const context = Application.android.foregroundActivity || Application.android.startActivity;
+    const context = Utils.android.getApplicationContext();
     const FILE_CODE = 1231;
 
     if (!Intent) {
@@ -156,7 +156,7 @@ function updatePersistableUris(context: android.content.Context, uri: android.ne
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
-    const context = Application.android.foregroundActivity || Application.android.startActivity;
+    const context = Utils.android.getApplicationContext();
     const FOLDER_CODE = 1232;
     if (!Intent) {
         Intent = android.content.Intent;
@@ -212,6 +212,36 @@ export function pickFolder(params: FolderPickerOptions = {}) {
             return {
                 folders: []
             };
+        }
+    });
+}
+
+export async function saveFile(params: SaveFileOptions) {
+    const tempFile = knownFolders.temp().getFile(params.name);
+    await tempFile.write(params.data);
+    const context = Utils.android.getApplicationContext();
+    const FILE_CODE = 1233;
+
+    if (!Intent) {
+        Intent = android.content.Intent;
+    }
+    if (!FilePath) {
+        FilePath = com.nativescript.documentpicker.FilePath;
+    }
+    const intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+    intent.putExtra(Intent.EXTRA_TITLE, params.name);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    // Convert extensions to mime type
+    let mimeTypes: string[];
+    if (params.mimeType) {
+        intent.setType(params.mimeType);
+    }
+    prepareIntent(intent, params);
+    return callIntent(context, intent, FILE_CODE).then((result: AndroidActivityResultEventData) => {
+        if (result.resultCode === android.app.Activity.RESULT_OK) {
+            return true;
+        } else {
+            return false;
         }
     });
 }
