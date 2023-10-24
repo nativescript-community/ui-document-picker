@@ -106,7 +106,11 @@ export async function pickFolder(params: FolderPickerOptions = {}) {
 export async function saveFile(params: SaveFileOptions) {
     return new Promise(async (resolve, reject) => {
         const tempFile = knownFolders.temp().getFile(params.name);
-        await tempFile.write(params.data);
+        if (typeof params.data === 'string') {
+            await tempFile.writeText(params.data);
+        } else {
+            await tempFile.write(params.data);
+        }
         const controller = UIDocumentPickerViewController.alloc().initForExportingURLsAsCopy(
             [NSURL.URLWithString(tempFile.path)],
             true

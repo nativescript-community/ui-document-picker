@@ -1,5 +1,13 @@
 import { request } from '@nativescript-community/perms';
-import { AndroidActivityResultEventData, AndroidApplication, Application, Device, Utils, knownFolders } from '@nativescript/core';
+import {
+    AndroidActivityResultEventData,
+    AndroidApplication,
+    Application,
+    Device,
+    File,
+    Utils,
+    knownFolders
+} from '@nativescript/core';
 import lazy from '@nativescript/core/utils/lazy';
 import { CommonPickerOptions, FilePickerOptions, FolderPickerOptions, SaveFileOptions } from './index.common';
 
@@ -62,7 +70,7 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
-    const context = Utils.android.getApplicationContext();
+    const context = Application.android.startActivity;
     const FILE_CODE = 1231;
 
     if (!Intent) {
@@ -156,7 +164,7 @@ function updatePersistableUris(context: android.content.Context, uri: android.ne
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
-    const context = Utils.android.getApplicationContext();
+    const context = Application.android.startActivity;
     const FOLDER_CODE = 1232;
     if (!Intent) {
         Intent = android.content.Intent;
@@ -217,9 +225,13 @@ export function pickFolder(params: FolderPickerOptions = {}) {
 }
 
 export async function saveFile(params: SaveFileOptions) {
-    const tempFile = knownFolders.temp().getFile(params.name);
-    await tempFile.write(params.data);
-    const context = Utils.android.getApplicationContext();
+    // const tempFile = knownFolders.temp().getFile(params.name);
+    // if (typeof params.data === 'string') {
+    //     await tempFile.writeText(params.data);
+    // } else {
+    //     await tempFile.write(params.data);
+    // }
+    const context = Application.android.startActivity;
     const FILE_CODE = 1233;
 
     if (!Intent) {
@@ -231,15 +243,31 @@ export async function saveFile(params: SaveFileOptions) {
     const intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
     intent.putExtra(Intent.EXTRA_TITLE, params.name);
     intent.addCategory(Intent.CATEGORY_OPENABLE);
-    // Convert extensions to mime type
-    let mimeTypes: string[];
     if (params.mimeType) {
         intent.setType(params.mimeType);
+    } else {
+        intent.setType('*/*');
     }
     prepareIntent(intent, params);
     return callIntent(context, intent, FILE_CODE).then((result: AndroidActivityResultEventData) => {
         if (result.resultCode === android.app.Activity.RESULT_OK) {
-            return true;
+            if (result.intent != null) {
+                const uri: android.net.Uri = (result.intent as android.content.Intent).getData();
+                const filePath = sdkVersion() >= 30 ? uri.toString() : FilePath.getPath(context, uri);
+                console.log('uri', filePath, params.data);
+                if (typeof params.data === 'string') {
+                    return File.fromPath(filePath)
+                        .writeText(params.data)
+                        .then(() => true);
+                    // await tempFile.writeText(params.data);
+                } else {
+                    return File.fromPath(filePath)
+                        .write(params.data)
+                        .then(() => true);
+                    // await tempFile.write(params.data);
+                }
+            }
+            return false;
         } else {
             return false;
         }
