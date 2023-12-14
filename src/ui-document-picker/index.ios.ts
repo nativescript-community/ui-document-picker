@@ -73,14 +73,18 @@ export function openFilePicker(params: FilePickerOptions = {}) {
     let documentTypes;
 
     if (params.extensions && params.extensions.length > 0) {
-        documentTypes = Utils.ios.collections.jsArrayToNSArray(params.extensions);
+        documentTypes = params.extensions;
     } else {
-        documentTypes = Utils.ios.collections.jsArrayToNSArray([UTTypeContent.identifier]);
+        documentTypes = [UTTypeContent.identifier];
+    }
+    if (params.documentTypes) {
+        documentTypes = documentTypes || [];
+        documentTypes.push(...params.documentTypes);
     }
 
     return new Promise((resolve, reject) => {
         const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
-            documentTypes,
+            Utils.ios.collections.jsArrayToNSArray(documentTypes),
             params.pickerMode !== undefined ? params.pickerMode : UIDocumentPickerMode.Import
         );
         delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;

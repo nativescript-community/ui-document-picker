@@ -9,7 +9,9 @@ export interface CommonPickerOptions {
     cloud?: boolean;
 }
 export interface FilePickerOptions extends CommonPickerOptions {
-    extensions?: string[];
+    extensions?: string[]; // will be transformed to mimeTypes on android
+    mimeTypes?: string[];// will be passed directly on android
+    documentTypes?: string[];// will be passed directly on ios
     pickerMode?: number;
 }
 export interface FolderPickerOptions extends CommonPickerOptions {}

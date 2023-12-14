@@ -87,6 +87,10 @@ export function openFilePicker(params: FilePickerOptions = {}) {
         const singleton = android.webkit.MimeTypeMap.getSingleton();
         mimeTypes = params.extensions?.map((s) => singleton.getMimeTypeFromExtension(s.replace('.', ''))).filter((s) => !!s);
     }
+    if (params.mimeTypes) {
+        mimeTypes = mimeTypes || [];
+        mimeTypes.push(...params.mimeTypes);
+    }
 
     if (mimeTypes?.length) {
         intent.setType(mimeTypes[0]);
