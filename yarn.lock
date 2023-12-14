@@ -2016,20 +2016,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nativescript-community/template-snippet@workspace:demo-snippets"
   dependencies:
-    "@nativescript-community/ui-document-picker": "file:../packages/ui-document-picker"
+    "@nativescript-community/ui-document-picker": "*"
   languageName: unknown
   linkType: soft
 
-"@nativescript-community/ui-document-picker@file:../packages/ui-document-picker::locator=%40nativescript-community%2Ftemplate-snippet%40workspace%3Ademo-snippets":
-  version: 1.1.12
-  resolution: "@nativescript-community/ui-document-picker@file:../packages/ui-document-picker#../packages/ui-document-picker::hash=61689c&locator=%40nativescript-community%2Ftemplate-snippet%40workspace%3Ademo-snippets"
-  dependencies:
-    "@nativescript-community/perms": ^2.3.0
-  checksum: 2f40ed6ff576bba1f370d288c3fcc57317b65e095f517217c082b60d310ec0d11a3d6e16ebe9e7301c90a60cb2f9686655fd842e873a72164ed2ee0cfe70b783
-  languageName: node
-  linkType: hard
-
-"@nativescript-community/ui-document-picker@workspace:packages/ui-document-picker":
+"@nativescript-community/ui-document-picker@*, @nativescript-community/ui-document-picker@workspace:packages/ui-document-picker":
   version: 0.0.0-use.local
   resolution: "@nativescript-community/ui-document-picker@workspace:packages/ui-document-picker"
   dependencies:
@@ -16156,11 +16147,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>":
   version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 07106822b4305de3f22835cbba949a2b35451cad50888759b6818421290ff95d522b38ef7919e70fb381c5fe9c1c643d7dea22c8b31652a717ddbd57b7f4d554
+  checksum: 0f4da2f15e6f1245e49db15801dbee52f2bbfb267e1c39225afdab5afee1a72839cd86000e65ee9d7e4dfaff12239d28beaf5ee431357fcced15fb08583d72ca
   languageName: node
   linkType: hard
 
@@ -16176,21 +16167,21 @@ __metadata:
 
 "typescript@patch:typescript@~4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=1a91c8"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 301459fc3eb3b1a38fe91bf96d98eb55da88a9cb17b4ef80b4d105d620f4d547ba776cc27b44cc2ef58b66eda23fe0a74142feb5e79a6fb99f54fc018a696afa
+  checksum: c981e82b77a5acdcc4e69af9c56cdecf5b934a87a08e7b52120596701e389a878b8e3f860e73ffb287bf649cc47a8c741262ce058148f71de4cdd88bb9c75153
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@~4.9.5#~builtin<compat/typescript>":
   version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 8f6260acc86b56bfdda6004bc53f32ea548f543e8baef7071c8e34d29d292f3e375c8416556c8de10b24deef6933cd1c16a8233dc84a3dd43a13a13265d0faab
+  checksum: 1f8f3b6aaea19f0f67cba79057674ba580438a7db55057eb89cc06950483c5d632115c14077f6663ea76fd09fce3c190e6414bb98582ec80aa5a4eaf345d5b68
   languageName: node
   linkType: hard
 

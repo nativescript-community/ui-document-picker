@@ -41,7 +41,7 @@ export default {
         try {
             
             const files  = await openFilePicker({
-                // extensions:['xml']
+                extensions:['pdf', 'txt', 'jpg']
             });
             console.log('files', files, knownFolders.currentApp())
             console.log('test',File.fromPath(files.files[0]))
