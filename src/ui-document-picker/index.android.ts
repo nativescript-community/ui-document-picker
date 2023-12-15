@@ -88,13 +88,11 @@ export function openFilePicker(params: FilePickerOptions = {}) {
         mimeTypes = params.extensions?.map((s) => singleton.getMimeTypeFromExtension(s.replace('.', ''))).filter((s) => !!s);
     }
 
+    intent.setType('*/*');
     if (mimeTypes?.length) {
-        intent.setType(mimeTypes[0]);
         if (mimeTypes.length > 1) {
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, convertToArray(mimeTypes.slice(1)));
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, convertToArray(mimeTypes));
         }
-    } else {
-        intent.setType('*/*');
     }
 
     intent.addCategory(Intent.CATEGORY_OPENABLE);
