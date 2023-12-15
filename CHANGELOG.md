@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.14](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.13...v1.1.14) (2023-12-15)
+
+### Bug Fixes
+
+* **android:** multiple extensions fix ([9d0f0b8](https://github.com/nativescript-community/ui-document-picker/commit/9d0f0b86dded175f51ad31c63931ad784395a787))
+
+### Features
+
+* new `mimeTypes` and `documentTypes` to pass them directly to iOS and Android (without trying to figure out from `extensions`) ([5405704](https://github.com/nativescript-community/ui-document-picker/commit/5405704b051add12907146f99f1c124d8ad1e7fd))
+
 ## [1.1.13](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.12...v1.1.13) (2023-10-24)
 
 ### Features
