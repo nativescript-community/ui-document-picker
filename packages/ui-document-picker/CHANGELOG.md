@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.15](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.14...v1.1.15) (2023-12-23)
+
+### Bug Fixes
+
+* **android:** native-api-usage ([a87fa8e](https://github.com/nativescript-community/ui-document-picker/commit/a87fa8e71dafac822644eb69559ba5b9a9257fae))
+
 ## [1.1.14](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.13...v1.1.14) (2023-12-15)
 
 **Note:** Version bump only for package @nativescript-community/ui-document-picker
