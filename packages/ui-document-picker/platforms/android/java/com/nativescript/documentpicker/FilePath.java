@@ -230,16 +230,16 @@ public class FilePath {
      */
     public static String getPath(final Context context, final Uri uri) {
 
-        Log.d(TAG, "File - " +
-                "Authority: " + uri.getAuthority() +
-                ", Path: " + uri.getPath() +
-                ", Fragment: " + uri.getFragment() +
-                ", Port: " + uri.getPort() +
-                ", Query: " + uri.getQuery() +
-                ", Scheme: " + uri.getScheme() +
-                ", Host: " + uri.getHost() +
-                ", Segments: " + uri.getPathSegments().toString()
-        );
+        // Log.d(TAG, "File - " +
+        //         "Authority: " + uri.getAuthority() +
+        //         ", Path: " + uri.getPath() +
+        //         ", Fragment: " + uri.getFragment() +
+        //         ", Port: " + uri.getPort() +
+        //         ", Query: " + uri.getQuery() +
+        //         ", Scheme: " + uri.getScheme() +
+        //         ", Host: " + uri.getHost() +
+        //         ", Segments: " + uri.getPathSegments().toString()
+        // );
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
