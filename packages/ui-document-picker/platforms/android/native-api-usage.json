@@ -1,0 +1,15 @@
+{
+	"uses": [
+		"com.nativescript.documentpicker:FilePath",
+		"android.app:Activity",
+		"android.content:Context",
+		"android.content:Intent",
+		"android.content:IntentSender",
+		"android.database:Cursor",
+		"android.net:Uri",
+		"android.webkit:MimeTypeMap",
+        "android.content:ClipData",
+        "android.content:ClipData.Item",
+		"java.lang:String"
+	]
+}
