@@ -248,6 +248,7 @@ public class FilePath {
 
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
+
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -386,11 +387,11 @@ public class FilePath {
             while ((read = inputStream.read(buffers)) != -1) {
                 outputStream.write(buffers, 0, read);
             }
-            Log.e("File Size","Size " + file.length());
+            // Log.e("File Size","Size " + file.length());
             inputStream.close();
             outputStream.close();
-            Log.e("File Path","Path " + file.getPath());
-            Log.e("File Size","Size " + file.length());
+            // Log.e("File Path","Path " + file.getPath());
+            // Log.e("File Size","Size " + file.length());
         }catch (Exception e){
             Log.e("Exception",e.getMessage());
         }
