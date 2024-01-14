@@ -73,7 +73,12 @@ export function openFilePicker(params: FilePickerOptions = {}) {
     let documentTypes;
 
     if (params.extensions && params.extensions.length > 0) {
-        documentTypes = params.extensions;
+        documentTypes = params.extensions.map((e) => {
+            if (e.indexOf('/') !== -1) {
+                return UTType.typeWithMIMEType(e);
+            }
+            return UTType.typeWithFilenameExtension(e);
+        });
     } else {
         documentTypes = [UTTypeContent.identifier];
     }
