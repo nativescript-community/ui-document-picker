@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.17](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.16...v1.1.17) (2024-01-14)
+
+### Bug Fixes
+
+* **ios:** rollback for now ([748f455](https://github.com/nativescript-community/ui-document-picker/commit/748f45503c6c883f3bfc6104939371ee7372339c))
+
 ## [1.1.16](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.15...v1.1.16) (2024-01-14)
 
 ### Bug Fixes
