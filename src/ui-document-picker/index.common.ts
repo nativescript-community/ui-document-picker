@@ -1,17 +1,18 @@
+export interface CommonPickerPermissionsOptions {
+    read?: boolean;
+    write?: boolean;
+    persistable?: boolean;
+    recursive?: boolean;
+}
 export interface CommonPickerOptions {
     multipleSelection?: boolean;
-    permissions?: {
-        read?: boolean;
-        write?: boolean;
-        persistable?: boolean;
-        recursive?: boolean;
-    };
+    permissions?: CommonPickerPermissionsOptions;
     cloud?: boolean;
 }
 export interface FilePickerOptions extends CommonPickerOptions {
     extensions?: string[]; // will be transformed to mimeTypes on android
-    mimeTypes?: string[];// will be passed directly on android
-    documentTypes?: string[];// will be passed directly on ios
+    mimeTypes?: string[]; // will be passed directly on android
+    documentTypes?: string[]; // will be passed directly on ios
     pickerMode?: number;
 }
 export interface FolderPickerOptions extends CommonPickerOptions {}

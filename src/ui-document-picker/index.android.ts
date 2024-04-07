@@ -1,7 +1,7 @@
 import { request } from '@nativescript-community/perms';
 import { AndroidActivityResultEventData, AndroidApplication, Application, File } from '@nativescript/core';
 import { SDK_VERSION } from '@nativescript/core/utils';
-import { CommonPickerOptions, FilePickerOptions, FolderPickerOptions, SaveFileOptions } from './index.common';
+import { CommonPickerOptions, CommonPickerPermissionsOptions, FilePickerOptions, FolderPickerOptions, SaveFileOptions } from './index.common';
 
 export { FilePickerOptions };
 let Intent: typeof android.content.Intent;
@@ -142,7 +142,11 @@ export function openFilePicker(params: FilePickerOptions = {}) {
         }
     });
 }
-function updatePersistableUris(context: android.content.Context, uri: android.net.Uri) {
+function updatePersistableUris(
+    context: android.content.Context,
+    uri: android.net.Uri,
+    permissions: CommonPickerPermissionsOptions
+) {
     const contentResolver = context.getContentResolver();
     // contentResolver.getPersistedUriPermissions()
     //     .filter { it.isReadPermission }
@@ -153,8 +157,16 @@ function updatePersistableUris(context: android.content.Context, uri: android.ne
     //             Intent.FLAG_GRANT_READ_URI_PERMISSION
     //         )
     //     }
+    let flags = 0;
+    if (permissions.write) {
+        flags = flags | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+    }
+    if (permissions.read) {
+        flags = flags | Intent.FLAG_GRANT_READ_URI_PERMISSION;
+    }
+    context.grantUriPermission(context.getPackageName(), uri, flags | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
     if (contentResolver.takePersistableUriPermission) {
-        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        contentResolver.takePersistableUriPermission(uri, flags);
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
@@ -176,7 +188,7 @@ export function pickFolder(params: FolderPickerOptions = {}) {
                 const uri: android.net.Uri = result.intent.getData();
                 if (uri) {
                     if (params.permissions?.persistable) {
-                        updatePersistableUris(context, uri);
+                        updatePersistableUris(context, uri, params.permissions);
                     }
                     return {
                         folders: [uri.toString()],
