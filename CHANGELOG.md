@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.18](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.17...v1.1.18) (2024-04-07)
+
+### Bug Fixes
+
+* **android:** persistable permission not persisted upon reboot ([e9b1b0b](https://github.com/nativescript-community/ui-document-picker/commit/e9b1b0b32a1cfaa4a06c36be13b016b05c81aebc))
+
 ## [1.1.17](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.16...v1.1.17) (2024-01-14)
 
 ### Bug Fixes
