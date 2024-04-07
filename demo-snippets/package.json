@@ -1,8 +1,8 @@
 {
     "name": "@nativescript-community/template-snippet",
-    "version": "1.1.14",
+    "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "@nativescript-community/ui-document-picker": "^1.1.14"
+        "@nativescript-community/ui-document-picker": "*"
     }
 }
