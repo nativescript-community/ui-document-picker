@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.20](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.19...v1.1.20) (2024-06-14)
+
+### Bug Fixes
+
+* **android:** regression fix ([55e3019](https://github.com/nativescript-community/ui-document-picker/commit/55e30196801ec0a8648bc778ed1ed47b0c0d68ee))
+
 ## [1.1.19](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.18...v1.1.19) (2024-06-14)
 
 ### Bug Fixes

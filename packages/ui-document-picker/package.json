@@ -1,6 +1,6 @@
 {
     "name": "@nativescript-community/ui-document-picker",
-    "version": "1.1.19",
+    "version": "1.1.20",
     "description": "A NativeScript plugin that allows you to select files from the device.",
     "main": "index",
     "typings": "index.d.ts",
