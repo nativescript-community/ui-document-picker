@@ -1,7 +1,13 @@
 import { request } from '@nativescript-community/perms';
-import { AndroidActivityResultEventData, AndroidApplication, Application, File } from '@nativescript/core';
+import { AndroidActivityResultEventData, Application, File, Utils } from '@nativescript/core';
 import { SDK_VERSION } from '@nativescript/core/utils';
-import { CommonPickerOptions, CommonPickerPermissionsOptions, FilePickerOptions, FolderPickerOptions, SaveFileOptions } from './index.common';
+import {
+    CommonPickerOptions,
+    CommonPickerPermissionsOptions,
+    FilePickerOptions,
+    FolderPickerOptions,
+    SaveFileOptions
+} from './index.common';
 
 export { FilePickerOptions };
 let Intent: typeof android.content.Intent;
@@ -60,7 +66,7 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
-    const context = Application.android.startActivity;
+    const context = Utils.android.getApplicationContext();
     const FILE_CODE = 1231;
 
     if (!Intent) {
@@ -104,7 +110,8 @@ export function openFilePicker(params: FilePickerOptions = {}) {
                 const uri: android.net.Uri = result.intent.getData();
                 if (uri) {
                     return {
-                        files: [SDK_VERSION >= 30 ? uri.toString() : FilePath.getPath(context, uri)],
+                        files: [SDK_VERSION >= 30 || params.forceSAF ? uri.toString() : FilePath.getPath(context, uri)],
+                        // files: [uri.toString()],
                         android: uri
                     };
                 }
@@ -118,7 +125,7 @@ export function openFilePicker(params: FilePickerOptions = {}) {
                         if (item) {
                             const uri: android.net.Uri = item.getUri();
                             if (uri) {
-                                if (SDK_VERSION >= 30) {
+                                if (SDK_VERSION >= 30 || params.forceSAF) {
                                     files.push(uri.toString());
                                 } else {
                                     files.push(FilePath.getPath(context, uri));
@@ -170,7 +177,7 @@ function updatePersistableUris(
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
-    const context = Application.android.startActivity;
+    const context = Utils.android.getApplicationContext();
     const FOLDER_CODE = 1232;
     if (!Intent) {
         Intent = android.content.Intent;
@@ -205,7 +212,7 @@ export function pickFolder(params: FolderPickerOptions = {}) {
                         if (item) {
                             const uri: android.net.Uri = item.getUri();
                             if (uri) {
-                                if (SDK_VERSION >= 30) {
+                                if (SDK_VERSION >= 30 || params.forceSAF) {
                                     folders.push(uri.toString());
                                 } else {
                                     folders.push(FilePath.getPath(context, uri));
@@ -237,7 +244,7 @@ export async function saveFile(params: SaveFileOptions) {
     // } else {
     //     await tempFile.write(params.data);
     // }
-    const context = Application.android.startActivity;
+    const context = Utils.android.getApplicationContext();
     const FILE_CODE = 1233;
 
     if (!Intent) {
@@ -259,7 +266,7 @@ export async function saveFile(params: SaveFileOptions) {
         if (result.resultCode === android.app.Activity.RESULT_OK) {
             if (result.intent != null) {
                 const uri: android.net.Uri = result.intent.getData();
-                const filePath = SDK_VERSION >= 30 ? uri.toString() : FilePath.getPath(context, uri);
+                const filePath = SDK_VERSION >= 30 || params.forceSAF ? uri.toString() : FilePath.getPath(context, uri);
                 if (typeof params.data === 'string') {
                     return File.fromPath(filePath)
                         .writeText(params.data)

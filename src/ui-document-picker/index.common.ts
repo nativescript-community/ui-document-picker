@@ -8,6 +8,7 @@ export interface CommonPickerOptions {
     multipleSelection?: boolean;
     permissions?: CommonPickerPermissionsOptions;
     cloud?: boolean;
+    forceSAF?: boolean;
 }
 export interface FilePickerOptions extends CommonPickerOptions {
     extensions?: string[]; // will be transformed to mimeTypes on android
@@ -17,7 +18,7 @@ export interface FilePickerOptions extends CommonPickerOptions {
 }
 export interface FolderPickerOptions extends CommonPickerOptions {}
 
-export interface SaveFileOptions extends Pick<CommonPickerOptions, 'permissions'> {
+export interface SaveFileOptions extends Pick<CommonPickerOptions, 'forceSAF'>, Pick<CommonPickerOptions, 'permissions'> {
     name: string;
     data;
     mimeType?: string;
