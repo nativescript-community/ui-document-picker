@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.19](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.18...v1.1.19) (2024-06-14)
+
+### Bug Fixes
+
+* **android:** new param `forceSAF` to always use SAF (and remove the need for storage permission) ([9a23f04](https://github.com/nativescript-community/ui-document-picker/commit/9a23f042deb482d6f04f6c8827afdab8fe5c766a))
+
 ## [1.1.18](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.17...v1.1.18) (2024-04-07)
 
 ### Bug Fixes
