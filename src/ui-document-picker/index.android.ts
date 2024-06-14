@@ -66,7 +66,7 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
-    const context = Utils.android.getApplicationContext();
+    const context = Application.android.startActivity;
     const FILE_CODE = 1231;
 
     if (!Intent) {
@@ -177,7 +177,7 @@ function updatePersistableUris(
     }
 }
 export function pickFolder(params: FolderPickerOptions = {}) {
-    const context = Utils.android.getApplicationContext();
+    const context = Application.android.startActivity;
     const FOLDER_CODE = 1232;
     if (!Intent) {
         Intent = android.content.Intent;
@@ -244,7 +244,7 @@ export async function saveFile(params: SaveFileOptions) {
     // } else {
     //     await tempFile.write(params.data);
     // }
-    const context = Utils.android.getApplicationContext();
+    const context = Application.android.startActivity;
     const FILE_CODE = 1233;
 
     if (!Intent) {
