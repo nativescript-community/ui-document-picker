@@ -31,7 +31,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
             this._booleanResult
                 ? true
                 : {
-                      files: [url.absoluteString],
+                      files: [url.absoluteString.replace('file://','')],
                       ios: url
                   }
         );
@@ -44,7 +44,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         } else {
             const output = [];
             for (let i = 0; i < urls.count; i++) {
-                output.push(urls[i].absoluteString);
+                output.push(urls[i].absoluteString.replace('file://',''));
             }
             this._resolve({
                 files: output,
@@ -74,12 +74,12 @@ export function openFilePicker(params: FilePickerOptions = {}) {
 
     if (params.extensions && params.extensions.length > 0) {
         documentTypes = params.extensions;
-        // documentTypes = params.extensions.map((e) => {
-        //     if (e.indexOf('/') !== -1) {
-        //         return UTType.typeWithMIMEType(e);
-        //     }
-        //     return UTType.typeWithFilenameExtension(e);
-        // });
+        documentTypes = params.extensions.map((e) => {
+            if (e.indexOf('/') !== -1) {
+                return UTType.typeWithMIMEType(e).identifier;
+            }
+            return UTType.typeWithFilenameExtension(e).identifier;
+        });
     } else {
         documentTypes = [UTTypeContent.identifier];
     }
@@ -122,7 +122,7 @@ export async function saveFile(params: SaveFileOptions) {
             await tempFile.write(params.data);
         }
         const controller = UIDocumentPickerViewController.alloc().initForExportingURLsAsCopy(
-            [NSURL.URLWithString(tempFile.path)],
+            [NSURL.fileURLWithPath(tempFile.path)],
             true
         );
         delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject, true) as any;
