@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.21](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.20...v1.1.21) (2024-06-25)
+
+### Bug Fixes
+
+* **ios:** `saveFile` and `openFilePicker` fixes ([648b8ca](https://github.com/nativescript-community/ui-document-picker/commit/648b8ca8971180dfbb56f890b3e005d6198370af))
+
 ## [1.1.20](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.19...v1.1.20) (2024-06-14)
 
 ### Bug Fixes
