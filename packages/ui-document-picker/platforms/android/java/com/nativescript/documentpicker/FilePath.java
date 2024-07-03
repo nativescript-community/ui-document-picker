@@ -179,7 +179,10 @@ public class FilePath {
      */
     private static String getPathFromExtSD(String[] pathData) {
         final String type = pathData[0];
-        final String relativePath = "/" + pathData[1];
+        String relativePath = "";
+        if (pathData.length > 1) {
+            relativePath = "/" + pathData[1];
+        }
         String fullPath = "";
 
         // on my Sony devices (4.4.4 & 5.1.1), `type` is a dynamic string
