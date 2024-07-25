@@ -46,7 +46,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         } else {
             const output = [];
             for (let i = 0; i < urls.count; i++) {
-                output.push(urls[i].absoluteString.replace('file://', ''));
+                output.push(decodeURI(urls[i].absoluteString.replace('file://', '')));
             }
             this._resolve({
                 [this._resultKey]: output,
