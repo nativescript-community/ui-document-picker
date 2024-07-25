@@ -8,12 +8,14 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
     private _resolve: Function;
     private _reject: Function;
     private _booleanResult: boolean;
+    private _resultKey: string;
     public static ObjCProtocols = [UIDocumentPickerDelegate];
 
-    public static initWithResolveReject(resolve, reject, booleanResult = false) {
+    public static initWithResolveReject(resolve, reject, booleanResult = false, resultKey = 'files') {
         const delegate = DocumentPickerDelegate.new() as DocumentPickerDelegate;
         delegate._resolve = resolve;
         delegate._reject = reject;
+        delegate._resultKey = resultKey;
         delegate._booleanResult = booleanResult;
 
         return delegate;
@@ -31,7 +33,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
             this._booleanResult
                 ? true
                 : {
-                      files: [url.absoluteString.replace('file://','')],
+                      files: [url.absoluteString.replace('file://', '')],
                       ios: url
                   }
         );
@@ -44,10 +46,10 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         } else {
             const output = [];
             for (let i = 0; i < urls.count; i++) {
-                output.push(urls[i].absoluteString.replace('file://',''));
+                output.push(urls[i].absoluteString.replace('file://', ''));
             }
             this._resolve({
-                files: output,
+                [this._resultKey]: output,
                 ios: urls
             });
         }
@@ -111,9 +113,27 @@ export function openFilePicker(params: FilePickerOptions = {}) {
     });
 }
 export async function pickFolder(params: FolderPickerOptions = {}) {
-    return {
-        folders: []
-    };
+    return new Promise((resolve, reject) => {
+        const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
+            Utils.ios.collections.jsArrayToNSArray([UTTypeFolder.identifier]),
+            UIDocumentPickerMode.Open
+        );
+        delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject, false, 'folders') as any;
+        controller.delegate = delegate;
+
+        if (params.startingFolder) {
+            controller.directoryURL = NSURL.fileURLWithPath(params.startingFolder);
+        }
+        // if (options.multipleSelection) {
+        controller.allowsMultipleSelection = !!params.multipleSelection;
+        // }
+
+        // this.presentViewController(controller);
+        const app = UIApplication.sharedApplication;
+        const window = app.keyWindow || (app.windows.count > 0 && app.windows[0]);
+        const visibleVC = Utils.ios.getVisibleViewController(window.rootViewController);
+        visibleVC.presentViewControllerAnimatedCompletion(controller, true, null);
+    });
 }
 
 export async function saveFile(params: SaveFileOptions) {
