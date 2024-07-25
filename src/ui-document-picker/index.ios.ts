@@ -96,6 +96,9 @@ export function openFilePicker(params: FilePickerOptions = {}) {
         delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject) as any;
         controller.delegate = delegate;
 
+        if (params.startingFolder) {
+            controller.directoryURL = NSURL.fileURLWithPath(params.startingFolder);
+        }
         // if (options.multipleSelection) {
         controller.allowsMultipleSelection = !!params.multipleSelection;
         // }

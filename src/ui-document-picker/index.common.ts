@@ -6,6 +6,7 @@ export interface CommonPickerPermissionsOptions {
 }
 export interface CommonPickerOptions {
     multipleSelection?: boolean;
+    startingFolder?: string;
     permissions?: CommonPickerPermissionsOptions;
     cloud?: boolean;
     forceSAF?: boolean;

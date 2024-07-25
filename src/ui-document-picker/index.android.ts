@@ -63,6 +63,9 @@ function prepareIntent(intent: android.content.Intent, options: CommonPickerOpti
     if (options.cloud !== undefined) {
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, !options.cloud);
     }
+    if (options.startingFolder) {
+        intent.putExtra('android.provider.extra.INITIAL_URI', android.net.Uri.parse(options.startingFolder));
+    }
 }
 
 export function openFilePicker(params: FilePickerOptions = {}) {
