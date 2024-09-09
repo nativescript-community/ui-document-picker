@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.25](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.24...v1.1.25) (2024-09-09)
+
+### Bug Fixes
+
+* **ios:** trying to fix issue when the UTType identifier is passed directly. ([a751ba9](https://github.com/nativescript-community/ui-document-picker/commit/a751ba986d5cfe522ad4efca549c301ad77be470))
+
 ## [1.1.24](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.23...v1.1.24) (2024-07-25)
 
 ### Bug Fixes
