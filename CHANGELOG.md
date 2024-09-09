@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.24](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.23...v1.1.24) (2024-07-25)
+
+### Bug Fixes
+
+* **ios:** decodeURI in result to prevent wrong path ([41b7e93](https://github.com/nativescript-community/ui-document-picker/commit/41b7e93aef116dd78850d8640c969f7489b173f8))
+
+## [1.1.23](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.22...v1.1.23) (2024-07-25)
+
+### Features
+
+* **ios:** pickFolder support ([2bfcafd](https://github.com/nativescript-community/ui-document-picker/commit/2bfcafde3106126e21652fa019d72b417ca1d376))
+
+### Bug Fixes
+
+* new startingFolder option ([1a2c3c8](https://github.com/nativescript-community/ui-document-picker/commit/1a2c3c86c392f752071afccbac4d57cf21927bad))
+
 ## [1.1.22](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.21...v1.1.22) (2024-07-03)
 
 ### Bug Fixes
