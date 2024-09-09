@@ -31,7 +31,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
             this._booleanResult
                 ? true
                 : {
-                      files: [url.absoluteString.replace('file://','')],
+                      files: [url.absoluteString.replace('file://', '')],
                       ios: url
                   }
         );
@@ -44,7 +44,7 @@ class DocumentPickerDelegate extends NSObject implements UIDocumentPickerDelegat
         } else {
             const output = [];
             for (let i = 0; i < urls.count; i++) {
-                output.push(urls[i].absoluteString.replace('file://',''));
+                output.push(urls[i].absoluteString.replace('file://', ''));
             }
             this._resolve({
                 files: output,
@@ -75,10 +75,13 @@ export function openFilePicker(params: FilePickerOptions = {}) {
     if (params.extensions && params.extensions.length > 0) {
         documentTypes = params.extensions;
         documentTypes = params.extensions.map((e) => {
+            let result = e;
             if (e.indexOf('/') !== -1) {
-                return UTType.typeWithMIMEType(e).identifier;
+                result = UTType.typeWithMIMEType(e)?.identifier;
+            } else if (e.indexOf('.') === -1) {
+                result = UTType.typeWithFilenameExtension(e)?.identifier;
             }
-            return UTType.typeWithFilenameExtension(e).identifier;
+            return result || e;
         });
     } else {
         documentTypes = [UTTypeContent.identifier];
