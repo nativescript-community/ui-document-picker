@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.26](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.25...v1.1.26) (2024-10-14)
+
+### Bug Fixes
+
+* **android:** native getPath method fix (handle more SAF cases) ([c415753](https://github.com/nativescript-community/ui-document-picker/commit/c41575393ac6f0f893b5b3611b19a555aee23393))
+
 ## [1.1.25](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.24...v1.1.25) (2024-09-09)
 
 **Note:** Version bump only for package @nativescript-community/ui-document-picker
