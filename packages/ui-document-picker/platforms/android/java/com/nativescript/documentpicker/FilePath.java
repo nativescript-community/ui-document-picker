@@ -231,6 +231,20 @@ public class FilePath {
      * @param context The context.
      * @param uri The Uri to query.
      */
+    public static String getPathFromString(final Context context, final String src) {
+        return getPath(context, android.net.Uri.parse(src));
+    }
+    /**
+     * Get a file path from a Uri. This will get the the path for Storage Access
+     * Framework Documents, as well as the _data field for the MediaStore and
+     * other file-based ContentProviders.<br>
+     * <br>
+     * Callers should check whether the path is local before assuming it
+     * represents a local file.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     */
     public static String getPath(final Context context, final Uri uri) {
 
         // Log.d(TAG, "File - " +
@@ -247,12 +261,16 @@ public class FilePath {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (isKitKat && uri.toString().startsWith("content://")) {
 
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
-
-                final String docId = DocumentsContract.getDocumentId(uri);
+                String docId = null;
+                try {
+                    docId = DocumentsContract.getDocumentId(uri);
+                } catch(Exception e) {
+                    docId = DocumentsContract.getTreeDocumentId(uri);
+                }
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
@@ -299,7 +317,12 @@ public class FilePath {
             // MediaProvider
             else if (isMediaDocument(uri)) {
 
-                final String docId = DocumentsContract.getDocumentId(uri);
+                String docId = null;
+                try {
+                    docId = DocumentsContract.getDocumentId(uri);
+                } catch(Exception e) {
+                    docId = DocumentsContract.getTreeDocumentId(uri);
+                }
                 final String[] split = docId.split(":");
                 final String type = split[0];
 

@@ -3,7 +3,8 @@ declare namespace com {
         declare namespace documentpicker {
             declare class FilePath {
                 static getPath(context: globalAndroid.content.Context, uri: android.net.Uri) : string
-            }
+				static getPathFromString(context: globalAndroid.content.Context, src: string) : string
+			}
         }
     }
 }
