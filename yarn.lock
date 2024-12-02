@@ -1499,7 +1499,7 @@ __metadata:
 
 "@nativescript-community/plugin-seed-tools@file:tools::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.0.0
-  resolution: "@nativescript-community/plugin-seed-tools@file:tools#tools::hash=87cff1&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@nativescript-community/plugin-seed-tools@file:tools#tools::hash=38bcfa&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@angular/animations": "npm:~17.3.8"
     "@angular/common": "npm:~17.3.8"
@@ -1564,7 +1564,7 @@ __metadata:
     vue: "npm:^2.7.16"
     yargs: "npm:^17.7.2"
     zone.js: "npm:~0.14.5"
-  checksum: e9fef29d0410abf4221bc4fa423c5020d0d59f72ec023d03a38435e9bf802930fa56a027d10b2ccf1acc41d94ef7efbf2d8dedb03e3877e3c5acfcf0cc9a2097
+  checksum: c3f76bfcb5087e57c19c47c8092768bbab2533b20081d290ed1b762438e4f932b4ca8e39f1dab57aaf3926ae67a582320a3703d12bbad7db41ae202c6b5c1eba
   languageName: node
   linkType: hard
 
@@ -14322,11 +14322,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>":
   version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=29ae49"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c93786fcc9a70718ba1e3819bab56064ead5817004d1b8186f8ca66165f3a2d0100fee91fa64c840dcd45f994ca5d615d8e1f566d39a7470fc1e014dbb4cf15d
+  checksum: 57bf073a0b88f9bf76e5a24be3df864a8f9d0e70f8316969f4992ae26e30cb8d078708922da2ade1f2c8d1faee13b28bcb69876ebb1e37910e31c54aa9126aa2
   languageName: node
   linkType: hard
 
@@ -14342,7 +14342,7 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A~5.4.5#optional!builtin<compat/typescript>":
   version: 5.4.5
-  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=e012d7"
+  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=29ae49"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
