@@ -1,3 +1,4 @@
+import { SDK_VERSION } from '@nativescript/core/utils';
 import { Utils, knownFolders } from '@nativescript/core';
 import { FolderPickerOptions } from '.';
 import { FilePickerOptions, SaveFileOptions } from './index.common';
@@ -117,10 +118,15 @@ export function openFilePicker(params: FilePickerOptions = {}) {
 }
 export async function pickFolder(params: FolderPickerOptions = {}) {
     return new Promise((resolve, reject) => {
-        const controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
-            Utils.ios.collections.jsArrayToNSArray([UTTypeFolder.identifier]),
-            UIDocumentPickerMode.Open
-        );
+        let controller: UIDocumentPickerViewController;
+        if (SDK_VERSION > 14) {
+            controller = UIDocumentPickerViewController.alloc().initForOpeningContentTypesAsCopy(Utils.ios.collections.jsArrayToNSArray([UTTypeFolder]), false);
+        } else {
+            controller = UIDocumentPickerViewController.alloc().initWithDocumentTypesInMode(
+                Utils.ios.collections.jsArrayToNSArray([UTTypeFolder.identifier]),
+                UIDocumentPickerMode.Open
+            );
+        }
         delegate = DocumentPickerDelegate.initWithResolveReject(resolve, reject, false, 'folders') as any;
         controller.delegate = delegate;
 
