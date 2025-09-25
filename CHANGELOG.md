@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.29](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.26...v1.1.29) (2025-09-25)
+
+### Bug Fixes
+
+* **ios:** pickFolder allow write on iOS > 14 ([c4c812f](https://github.com/nativescript-community/ui-document-picker/commit/c4c812fc19d372f69df9c8a77b6de4b667d8f73a))
+
 ## [1.1.27](https://github.com/nativescript-community/ui-document-picker/compare/v1.1.26...v1.1.27) (2025-09-24)
 
 ### Bug Fixes
